@@ -32,19 +32,20 @@ public class status {
 	int[] tubarao = {2500,2000,7,3,3};
 	int[] dragaoM = {3000,2500,8,2,3};
 	int[] jacare = {2000,2000,3,6,3};
+	int[] nulo = {0,0,0,10,0};
 	
-	String[] compra = {"magia", "1"};
-	String[] vida = {"magia", "2"};
-	String[] dano = {"magia", "3"};
-	String[] destruicao = {"magia", "4"};
-	String[] ataque = {"magia", "5"};
-	String[] defesa = {"magia", "6"};
+	String[] compra = {"magia", "1", "3"};
+	String[] vida = {"magia", "2", "3"};
+	String[] dano = {"magia", "3","3"};
+	String[] destruicao = {"magia", "4", "8"};
+	String[] ataque = {"magia", "5","2"};
+	String[] defesa = {"magia", "6","2"};
 	
 
-	String[] equipamento = {"feitico", "1"};
-	String[] campoF = {"feitico", "2"};
-	String[] campoR = {"feitico", "3"};
-	String[] campoA = {"feitico", "4"};
+	String[] equipamento = {"feitico", "1","3"};
+	String[] campoF = {"feitico", "2","2"};
+	String[] campoR = {"feitico", "3","2"};
+	String[] campoA = {"feitico", "4","2"};
 	
 	public int[] getAtributosMonstro(String nomeMonstro) {
         switch (nomeMonstro) {
@@ -78,6 +79,7 @@ public class status {
             case "tubarao": return tubarao;
             case "dragao marinho": return dragaoM;
             case "jacare": return jacare;
+            case "nulo": return nulo;
 
             default: return null;
         }
