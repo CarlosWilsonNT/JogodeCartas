@@ -65,6 +65,7 @@ public class deckplayer2 extends JPanel implements KeyListener {
     private Image efeitos;
 
     private boolean mostrarEfeitos = false;
+    private boolean deckcheio = false;
     
     private JButton botaoEfeitos;
     
@@ -219,15 +220,17 @@ public class deckplayer2 extends JPanel implements KeyListener {
         efeitos = imagemEfeitos.getImage();
 
         Confirmar = new JButton("Confirmar");
-        Confirmar.setBounds(490, 0, 100, 40); 
+        Confirmar.setBounds(490, 0, 100, 40);
         add(Confirmar);
+
+        Confirmar.setVisible(false); 
 
         Confirmar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Conteiner parentFrame = (Conteiner) getTopLevelAncestor();
-                //embaralharDeck(deck2);
-                parentFrame.irPraraDuelo();
+              //embaralharDeck(deck2);
+               parentFrame.irPraraDuelo();
             }
         });
         
@@ -244,6 +247,16 @@ public class deckplayer2 extends JPanel implements KeyListener {
         setLayout(null);
         botaoEfeitos.setFocusable(false);
         add(botaoEfeitos);
+    }
+    
+    public void verificarDeckCheio() {
+        int contador = 0;
+        for (String carta : deck2) {
+            if (carta != null) {
+                contador++;
+            }
+        }
+        deckcheio = (contador >= 6);
     }
     
     //public void embaralharDeck(String[] deck) {
@@ -645,6 +658,8 @@ public class deckplayer2 extends JPanel implements KeyListener {
         for (int i = 0; i < getDeck2().length; i++) {
             if (getDeck2()[i] != null) {
                 System.out.println("Deck 2 [" + i + "] = " + getDeck2()[i]);
+                verificarDeckCheio();
+                Confirmar.setVisible(deckcheio);
             }
         }
 
