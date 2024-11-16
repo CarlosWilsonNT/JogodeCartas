@@ -193,7 +193,7 @@ public class deckplayer1 extends JPanel implements KeyListener {
         ImageIcon cartadestruir = new ImageIcon("banco_i/carta de magia destruir.png");
         destruir = cartadestruir.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
         
-        ImageIcon cartaataque = new ImageIcon("banco_i/carta de magia reduz ataque.png");
+        ImageIcon cartaataque = new ImageIcon("banco_i/carta de magia aumentar ataque.png");
         ataque = cartaataque.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
         
         ImageIcon cartadefesa = new ImageIcon("banco_i/carta de magia reduz defesa.png");
