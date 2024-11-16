@@ -102,7 +102,7 @@ public class duelo extends JPanel implements KeyListener {
     private int x2 = 222;
     private int y2 = 100;
     
-    private int turno = 1;
+    private int turno;
     
     private int invocacao;
     
@@ -119,7 +119,7 @@ public class duelo extends JPanel implements KeyListener {
     int xMonstros = 392, yMonstros = 360;
     int cartasExibidasDeck = 5;
     
-    private int cristalInvocacao = 1;
+    private int cristalInvocacao;
     int cristalInvocacao2 = 1;
     int pontosVidaJogador1 = 8000;
     int pontosVidaJogador2 = 8000;
@@ -141,7 +141,22 @@ public class duelo extends JPanel implements KeyListener {
     private boolean textoAtaque = false;
     private boolean textoDefesa = false;
     
+    private boolean turnoInicial = true;
+    private boolean turnoJogador1 = true;
+    private boolean turnoJogador2 = true;
+    
+    public void iniciarJogo() {
+        turno = (Math.random() < 0.5) ? 1 : 2;
+        if(turno == 1) {
+        	turnoJogador2 = false;
+        }else {
+        	turnoJogador1 = false;
+        }
+    }
+    
     public duelo(String[] deck1, String[] deck2) {
+    	
+    	iniciarJogo();
     	
     	this.deck1 = deck1;
         this.deck2 = deck2;
@@ -279,7 +294,7 @@ public class duelo extends JPanel implements KeyListener {
         ImageIcon cartadestruir = new ImageIcon("banco_i/carta de magia destruir.png");
         destruir = cartadestruir.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
         
-        ImageIcon cartaataque = new ImageIcon("banco_i/carta de magia reduz ataque.png");
+        ImageIcon cartaataque = new ImageIcon("banco_i/carta de magia aumentar ataque.png");
         ataque = cartaataque.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
         
         ImageIcon cartadefesa = new ImageIcon("banco_i/carta de magia reduz defesa.png");
@@ -319,7 +334,6 @@ public class duelo extends JPanel implements KeyListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarEfeitos = !mostrarEfeitos;
-                vencedor = !vencedor;
                 repaint();
                 requestFocusInWindow();
             }
@@ -333,7 +347,7 @@ public class duelo extends JPanel implements KeyListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                if (turno >= 2) {
+                if (!turnoInicial) {
                 	transferirPrimeiroTermo();
                 }
                 verificarVencedor();
@@ -368,7 +382,16 @@ public class duelo extends JPanel implements KeyListener {
         botaoFim.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	turno++;
+            	if(turnoJogador1) {
+            		turnoJogador1 = false;
+            		turnoJogador2 = true;
+            	}else {
+            		turnoJogador1 = true;
+            		turnoJogador2 = false;
+            	}
+            	turnoInicial = false;
+            	proximoTurno();
+                turno++;
             	faseBatalha = false;
             	botaoBatalha.setVisible(false);
                 botaoFim.setVisible(false);
@@ -388,13 +411,13 @@ public class duelo extends JPanel implements KeyListener {
     
     private void moverTermoPorContador(int contador) {
         int indice = contador - 1;
-        if (turno % 2 != 0) {
+        if (turnoJogador1) {
         if (indice >= 0 && indice < maojogador1.length && maojogador1[indice] != null) {
             String carta = maojogador1[indice];
             processarCarta(carta, maojogador1, indice, monstros, magiasefeiticos, cemiterio1);
         }
         }
-        if (turno % 2 == 0) {
+        if (turnoJogador2) {
         if (indice >= 0 && indice < maojogador2.length && maojogador2[indice] != null) {
             String carta = maojogador2[indice];
             processarCarta(carta, maojogador2, indice, monstros2, magiasefeiticos2, cemiterio2);
@@ -403,27 +426,58 @@ public class duelo extends JPanel implements KeyListener {
     }
     
     private void processarCarta(String carta, String[] mao, int indice, String[] listaMonstros, String[] listaMagiasFeiticos, String[] listaCemiterio) {
-        if (status.getAtributosMonstro(carta) != null) {
-            if (temEspacoNaLista(listaMonstros)) {
-                adicionarNaLista(listaMonstros, carta);
-                moverCartasParaEsquerda(mao, indice);
+        int[] atributosMonstro = status.getAtributosMonstro(carta);
+
+        if (atributosMonstro != null) {
+            int custoInvocacao = atributosMonstro[2];
+
+            if (custoInvocacao <= cristalInvocacao) { 
+                if (temEspacoNaLista(listaMonstros)) {
+                    adicionarNaLista(listaMonstros, carta); 
+                    moverCartasParaEsquerda(mao, indice);
+                    cristalInvocacao -= custoInvocacao; 
+                    System.out.println("Monstro invocado: " + carta + ". Cristais restantes: " + cristalInvocacao);
+                } else {
+                    System.out.println("Não há espaço para invocar mais monstros.");
+                }
+            } else {
+                System.out.println("Cristais insuficientes para invocar " + carta + ". Necessário: " + custoInvocacao + ", disponível: " + cristalInvocacao);
             }
-        } 
+        }
+
         else if (status.getEfeitoMagia(carta) != null) {
-            int valorMagia = Integer.parseInt(status.getEfeitoMagia(carta)[1]);
-            	efeitoMagia(valorMagia);
-            if (temEspacoNaLista(listaMagiasFeiticos)) {
-                adicionarNaLista(listaMagiasFeiticos, carta);
-                moverCartasParaEsquerda(mao, indice);
-                moverParaCemiterio(carta, listaMagiasFeiticos, listaCemiterio);
+            String[] magia = status.getEfeitoMagia(carta);
+            int valorMagia = Integer.parseInt(magia[1]);
+            int custoMagia = Integer.parseInt(magia[2]);
+
+            if (custoMagia <= cristalInvocacao) {
+                efeitoMagia(valorMagia);
+                if (temEspacoNaLista(listaMagiasFeiticos)) {
+                    adicionarNaLista(listaMagiasFeiticos, carta);
+                    moverCartasParaEsquerda(mao, indice);
+                    moverParaCemiterio(carta, listaMagiasFeiticos, listaCemiterio);
+                    cristalInvocacao -= custoMagia;
+                    System.out.println("Magia ativada: " + carta + ". Cristais restantes: " + cristalInvocacao);
+                }
+            } else {
+                System.out.println("Cristais insuficientes para ativar magia " + carta + ". Necessário: " + custoMagia + ", disponível: " + cristalInvocacao);
             }
         } 
         else if (status.getEfeitoFeitico(carta) != null) {
-            int valorFeitico = Integer.parseInt(status.getEfeitoFeitico(carta)[1]);
-            efeitoFeitico(valorFeitico);
-            if (temEspacoNaLista(listaMagiasFeiticos)) {
-                adicionarNaLista(listaMagiasFeiticos, carta);
-                moverCartasParaEsquerda(mao, indice);
+            String[] feitico = status.getEfeitoFeitico(carta);
+            int valorFeitico = Integer.parseInt(feitico[1]);
+            int custoFeitico = Integer.parseInt(feitico[2]);
+
+            if (custoFeitico <= cristalInvocacao) {
+                efeitoFeitico(valorFeitico);
+                if (temEspacoNaLista(listaMagiasFeiticos)) {
+                    adicionarNaLista(listaMagiasFeiticos, carta);
+                    moverCartasParaEsquerda(mao, indice);
+                    cristalInvocacao -= custoFeitico;
+                    System.out.println("Feitiço ativado: " + carta + ". Cristais restantes: " + cristalInvocacao);
+                }
+            } else {
+                System.out.println("Cristais insuficientes para ativar feitiço " + carta + ". Necessário: " + custoFeitico + ", disponível: " + cristalInvocacao);
             }
         }
     }
@@ -456,18 +510,18 @@ public class duelo extends JPanel implements KeyListener {
             	transferirPrimeiroTermo();
                 break;
             case 2:
-            	if (turno % 2 != 0) {
+            	if (turnoJogador1) {
             	pontosVidaJogador1 += 500;
             	}
-            	if (turno % 2 == 0) {
+            	if (turnoJogador2) {
             	pontosVidaJogador2 += 500;
             	}
                 break;
             case 3:
-            	if (turno % 2 != 0) {
+            	if (turnoJogador1) {
             	pontosVidaJogador1 -= 300;
             	}
-            	if (turno % 2 == 0) {
+            	if (turnoJogador2) {
             	pontosVidaJogador2 -= 300;
             	}
                 break;
@@ -549,7 +603,7 @@ public class duelo extends JPanel implements KeyListener {
     
 
     public void realizarCombate() {
-        if (turno % 2 != 0) {
+        if (turnoJogador1) {
             if (monstroSelecionadoAtacante != null && monstroSelecionadoAlvo != null) {
                 int[] atributosAtacante = status.getAtributosMonstro(monstroSelecionadoAtacante);
                 int[] atributosAlvo = status.getAtributosMonstro(monstroSelecionadoAlvo);
@@ -594,13 +648,11 @@ public class duelo extends JPanel implements KeyListener {
                         verificarVencedor();
                         resetarSelecoes();
                     }
-                } else {
-                    System.out.println("Erro ao obter atributos de um ou ambos os monstros selecionados.");
                 }
             } 
         }
 
-        if (turno % 2 == 0) {
+        if (turnoJogador2) {
             if (monstroSelecionadoAtacante != null && monstroSelecionadoAlvo != null) {
                 int[] atributosAtacante = status.getAtributosMonstro(monstroSelecionadoAtacante);
                 int[] atributosAlvo = status.getAtributosMonstro(monstroSelecionadoAlvo);
@@ -636,9 +688,7 @@ public class duelo extends JPanel implements KeyListener {
                         verificarVencedor();
                         resetarSelecoes();
                     }
-                } else {
-                    System.out.println("Erro ao obter atributos de um ou ambos os monstros selecionados.");
-                }
+                } 
             } 
         }
     }
@@ -673,6 +723,10 @@ public class duelo extends JPanel implements KeyListener {
         super.addNotify();
         requestFocusInWindow();
     }
+    private boolean turnoAtualizado = true;
+    public void proximoTurno() {
+        turnoAtualizado = true;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -689,7 +743,6 @@ public class duelo extends JPanel implements KeyListener {
 
         graficos.drawString(String.valueOf(pontosVidaJogador1), 0, 140);
         graficos.drawString(String.valueOf(pontosVidaJogador2), 950, 580);
-        graficos.drawString(String.valueOf(contador), 0, 50);
         graficos.setFont(new Font("Arial", Font.BOLD, 30));
         if(faseBatalha) {
         g.drawString("Fase de Batalha", 20, 300);
@@ -700,91 +753,45 @@ public class duelo extends JPanel implements KeyListener {
         if(!faseBatalha) {
             g.drawString("Fase Principal", 20, 300);
             }
-        if (turno % 2 != 0) {
-        	graficos.drawImage(setaB, x, y, this);
-        	
-        	if(turno >= 1) {
-        		graficos.drawImage(cristal, 340, 370, this);
+
+        if (turnoJogador1) {
+            graficos.drawImage(setaB, x, y, this);
+
+            if (turnoAtualizado) {
+                cristalInvocacao = Math.min((turno - 1) / 2 + 1, 10);
+                turnoAtualizado = false;
             }
-            if(turno >= 3) {
-            	cristalInvocacao = 2;
-            	graficos.drawImage(cristal, 310, 370, this);
+
+            if (turno >= 1) graficos.drawImage(cristal, 340, 370, this);
+            if (turno >= 3) graficos.drawImage(cristal, 310, 370, this);
+            if (turno >= 5) graficos.drawImage(cristal, 340, 410, this);
+            if (turno >= 7) graficos.drawImage(cristal, 310, 410, this);
+            if (turno >= 9) graficos.drawImage(cristal, 340, 450, this);
+            if (turno >= 11) graficos.drawImage(cristal, 310, 450, this);
+            if (turno >= 13) graficos.drawImage(cristal, 340, 490, this);
+            if (turno >= 15) graficos.drawImage(cristal, 310, 490, this);
+            if (turno >= 17) graficos.drawImage(cristal, 340, 530, this);
+            if (turno >= 19) graficos.drawImage(cristal, 310, 530, this);
+        }
+
+        if (turnoJogador2) {
+            graficos.drawImage(setaC, x2, y2, this);
+
+            if (turnoAtualizado) {
+                cristalInvocacao = Math.min((turno - 1) / 2 + 1, 10);
+                turnoAtualizado = false;
             }
-            if(turno >= 5) {
-            	cristalInvocacao = 3;
-            	graficos.drawImage(cristal, 340, 410, this);
-            }
-            if(turno >= 7) {
-            	cristalInvocacao = 4;
-            	graficos.drawImage(cristal, 310, 410, this);
-            }
-            if(turno >= 9) {
-            	cristalInvocacao = 5;
-            	graficos.drawImage(cristal, 340, 450, this);
-            }
-            if(turno >= 11) {
-            	cristalInvocacao = 6;
-            	graficos.drawImage(cristal, 310, 450, this);
-            }
-            if(turno >= 13) {
-            	cristalInvocacao = 7;
-            	graficos.drawImage(cristal, 340, 490, this);
-            }
-            if(turno >= 15) {
-            	cristalInvocacao = 8;
-            	graficos.drawImage(cristal, 310, 490, this);
-            }
-            if(turno >= 17) {
-            	cristalInvocacao = 9;
-            	graficos.drawImage(cristal, 340, 530, this);
-            }
-            if(turno >= 19) {
-            	cristalInvocacao = 10;
-            	graficos.drawImage(cristal, 310, 530, this);
-            }
-            
-        } if (turno % 2 == 0) {
-        	graficos.drawImage(setaC, x2, y2, this);
-        	if(turno >= 1) {
-        		graficos.drawImage(cristal, 680, 120, this);
-            }
-            if(turno >= 2) {
-            	cristalInvocacao2 = 2;
-            	graficos.drawImage(cristal, 710, 120, this);
-            }
-            if(turno >= 4) {
-            	cristalInvocacao2 = 3;
-            	graficos.drawImage(cristal, 680, 160, this);
-            }
-            if(turno >= 6) {
-            	cristalInvocacao2 = 4;
-            	graficos.drawImage(cristal, 710, 160, this);
-            }
-            if(turno >= 8) {
-            	cristalInvocacao2 = 5;
-            	graficos.drawImage(cristal, 680, 200, this);
-            }
-            if(turno >= 10) {
-            	cristalInvocacao2 = 6;
-            	graficos.drawImage(cristal, 710, 200, this);
-            }
-            if(turno >= 12) {
-            	cristalInvocacao2 = 7;
-            	graficos.drawImage(cristal, 680, 240, this);
-            }
-            if(turno >= 14) {
-            	cristalInvocacao2 = 8;
-            	graficos.drawImage(cristal, 710, 240, this);
-            }
-            if(turno >= 16) {
-            	cristalInvocacao2 = 9;
-            	graficos.drawImage(cristal, 680, 280, this);
-            }
-            if(turno >= 18) {
-            	cristalInvocacao2 = 10;
-            	graficos.drawImage(cristal, 710, 280, this);
-            }
-            
+
+            if (turno >= 1) graficos.drawImage(cristal, 680, 120, this);
+            if (turno >= 3) graficos.drawImage(cristal, 710, 120, this);
+            if (turno >= 5) graficos.drawImage(cristal, 680, 160, this);
+            if (turno >= 7) graficos.drawImage(cristal, 710, 160, this);
+            if (turno >= 9) graficos.drawImage(cristal, 680, 200, this);
+            if (turno >= 11) graficos.drawImage(cristal, 710, 200, this);
+            if (turno >= 13) graficos.drawImage(cristal, 680, 240, this);
+            if (turno >= 15) graficos.drawImage(cristal, 710, 240, this);
+            if (turno >= 17) graficos.drawImage(cristal, 680, 280, this);
+            if (turno >= 19) graficos.drawImage(cristal, 710, 280, this);
         }
         
         int x = 200, y = 585;
@@ -1337,10 +1344,10 @@ public class duelo extends JPanel implements KeyListener {
             }
             
         }
-        if (turno % 2 !=0) {
+        if (turnoJogador1) {
         	graficos.drawImage(tela, 150, 0, this);
         }
-        if (turno % 2 ==0) {
+        if (turnoJogador2) {
         	graficos.drawImage(tela, 140, 585, this);
         }
         
@@ -1398,7 +1405,7 @@ public class duelo extends JPanel implements KeyListener {
         requestFocusInWindow();
         }
         if (faseBatalha) {
-        	if (turno % 2 != 0) {
+        	if (turnoJogador1) {
             if (selecionandoAtacante) {
                 if (key == KeyEvent.VK_A && monstros.length > 0) {
                     monstroSelecionadoAtacante = monstros[0];
@@ -1439,7 +1446,7 @@ public class duelo extends JPanel implements KeyListener {
                 }
             }
         }
-        	if (turno % 2 == 0) {
+        	if (turnoJogador2) {
                 if (selecionandoAtacante) {
                     if (key == KeyEvent.VK_A && monstros2.length > 0) {
                         monstroSelecionadoAtacante = monstros2[0];
