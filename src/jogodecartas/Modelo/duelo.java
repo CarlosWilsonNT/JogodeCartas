@@ -67,8 +67,6 @@ public class duelo extends JPanel implements KeyListener {
     private Image setaB;
     private Image setaC;
     
-    private Image tela;
-    
     private String[] deck1;
     private String[] deck2;
     
@@ -81,8 +79,8 @@ public class duelo extends JPanel implements KeyListener {
     private String[] maojogador1 = new String[8];
     private String[] maojogador2 = new String[8];
     
-    private String[] cemiterio1 = new String[8];
-    private String[] cemiterio2 = new String[8];
+    private String[] cemiterio1 = new String[30];
+    private String[] cemiterio2 = new String[30];
     
     private status status = new status();
     
@@ -104,8 +102,6 @@ public class duelo extends JPanel implements KeyListener {
     private int y2 = 100;
     
     private int turno;
-    
-    private int invocacao;
     
     int cartasExibidas = 5;
     int cartasExibidas2 = 5;
@@ -135,6 +131,7 @@ public class duelo extends JPanel implements KeyListener {
     private boolean aumentoAtivado = false;
     private boolean reducaoAtivada = false;
     private boolean espada = false;
+    private boolean espada2 = false;
     private boolean camporaio = false;
     private boolean campofogo = false;
     private boolean campoagua = false;
@@ -325,9 +322,6 @@ public class duelo extends JPanel implements KeyListener {
         ImageIcon imagemEfeitos = new ImageIcon("banco_i/efeitos.png");
         efeitos = imagemEfeitos.getImage();
         
-        ImageIcon imagemtela = new ImageIcon("banco_i/tela.png");
-        tela = imagemtela.getImage().getScaledInstance(800, 95, Image.SCALE_SMOOTH);
-        
         ImageIcon imagemcomojogar = new ImageIcon("banco_i/comojogar2.png");
         comojogar = imagemcomojogar.getImage();
         
@@ -386,7 +380,6 @@ public class duelo extends JPanel implements KeyListener {
         botaoFim.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	salvarEstadoMonstrosInvocados();
             	if(turnoJogador1) {
             		turnoJogador1 = false;
             		turnoJogador2 = true;
@@ -396,6 +389,7 @@ public class duelo extends JPanel implements KeyListener {
             	}
             	turnoInicial = false;
             	proximoTurno();
+            	resetarBooleansInvocados();
                 turno++;
             	faseBatalha = false;
             	botaoBatalha.setVisible(false);
@@ -403,13 +397,12 @@ public class duelo extends JPanel implements KeyListener {
                 botaoCompra.setVisible(true);
                 textoDefesa = false;
             	textoAtaque = false;
-            	resetarBooleansInvocados();
+            	resetarSelecoes();
                 repaint();
             }
         });
         botaoFim.setVisible(false);
         botaoFim.setFocusable(false);
-        resetarSelecoes();
         add(botaoFim);
 
         setLayout(null);
@@ -446,15 +439,6 @@ public class duelo extends JPanel implements KeyListener {
         }
     }
     
-    private void salvarEstadoMonstrosInvocados() {
-        for (int i = 0; i < monstrosInvocadosTurno.length; i++) {
-            monstrosInvocadosTurnoAnterior[i] = monstrosInvocadosTurno[i];
-        }
-    }
-
-    int[] monstrosInvocadosTurno = new int[3];
-    int[] monstrosInvocadosTurnoAnterior = new int[3];
-    
     private void atualizarBooleansInvocados(String[] listaMonstros, int posicaoInvocada) {
         if (listaMonstros == monstros) {
             if (posicaoInvocada == 0) invocadoAgora1 = true;
@@ -476,12 +460,12 @@ public class duelo extends JPanel implements KeyListener {
         invocadoAgora6 = false;
     }
     
-    private boolean invocadoAgora1 = false;
-    private boolean invocadoAgora2 = false;
-    private boolean invocadoAgora3 = false;
-    private boolean invocadoAgora4 = false;
-    private boolean invocadoAgora5 = false;
-    private boolean invocadoAgora6 = false;
+    private boolean invocadoAgora1;
+    private boolean invocadoAgora2;
+    private boolean invocadoAgora3;
+    private boolean invocadoAgora4;
+    private boolean invocadoAgora5;
+    private boolean invocadoAgora6;
 
     private void processarCarta(String carta, String[] mao, int indice, String[] listaMonstros, String[] listaMagiasFeiticos, String[] listaCemiterio) {
         int[] atributosMonstro = status.getAtributosMonstro(carta);
@@ -568,6 +552,29 @@ public class duelo extends JPanel implements KeyListener {
         }
     }
     
+    private void raigeki1() {
+        todosParaCemiterio(monstros, cemiterio1, "Jogador 1");
+    }
+
+    private void raigeki2() {
+        todosParaCemiterio(monstros2, cemiterio2, "Jogador 2");
+    }
+
+    private void todosParaCemiterio(String[] monstros, String[] cemiterio, String jogador) {
+        for (int i = 0; i < monstros.length; i++) {
+            String monstro = monstros[i];
+            if (monstro != null) {
+                if (temEspacoNaLista(cemiterio)) {
+                    adicionarNaLista(cemiterio, monstro);
+                    System.out.println("Monstro transferido para o cemitério de " + jogador + ": " + monstro);
+                    monstros[i] = null; // Remove o monstro da lista de monstros
+                } else {
+                    System.out.println("Não há espaço no cemitério de " + jogador + " para o monstro: " + monstro);
+                }
+            }
+        }
+    }
+    
     private void destruirMagiaFeiticoOponente() {
     	if (turnoJogador1) {
         for (int i = 0; i < magiasefeiticos2.length; i++) {
@@ -590,38 +597,33 @@ public class duelo extends JPanel implements KeyListener {
     }
     
     private void invocarMonstroDoCemiterio() {
-    	if (turnoJogador1) {
-        for (int i = 0; i < cemiterio1.length; i++) {
-            if (cemiterio1[i] != null) {
+        if (turnoJogador1) {
+            invocarMonstro(cemiterio1, monstros, "Jogador 1");
+        } else if (turnoJogador2) {
+            invocarMonstro(cemiterio2, monstros2, "Jogador 2");
+        }
+    }
+
+    private void invocarMonstro(String[] cemiterio, String[] monstros, String jogador) {
+        for (int i = 0; i < cemiterio.length; i++) {
+            String monstro = cemiterio[i];
+            if (monstro != null && !monstro.equalsIgnoreCase("nulo")) {
                 if (temEspacoNaLista(monstros)) {
-                    adicionarNaLista(monstros, cemiterio1[i]);
-                    System.out.println("Monstro invocado do cemitério: " + cemiterio1[i]);
-                    cemiterio1[i] = null;
-                    break;
+                    adicionarNaLista(monstros, monstro);
+                    System.out.println("Monstro invocado do cemitério para " + jogador + ": " + monstro);
+                    cemiterio[i] = null;
+                    return;
                 } else {
-                    System.out.println("Não há espaço para invocar monstros do cemitério.");
+                    System.out.println("Não há espaço para invocar monstros do cemitério para " + jogador + ".");
+                    return;
                 }
             }
         }
-    	}
-    	if (turnoJogador2) {
-            for (int i = 0; i < cemiterio2.length; i++) {
-                if (cemiterio2[i] != null) {
-                    if (temEspacoNaLista(monstros2)) {
-                        adicionarNaLista(monstros, cemiterio2[i]);
-                        System.out.println("Monstro invocado do cemitério: " + cemiterio2[i]);
-                        cemiterio2[i] = null;
-                        break;
-                    } else {
-                        System.out.println("Não há espaço para invocar monstros do cemitério.");
-                    }
-                }
-            }
-        	}
+        System.out.println("Nenhum monstro válido no cemitério para " + jogador + ".");
     }
     
     private void verificarEfeitoMonstro7(String[] listaMonstros) {
-    	
+    	if (turnoJogador1) {
         for (int i = 0; i < listaMonstros.length; i++) {
             String monstro = listaMonstros[i];
 
@@ -633,16 +635,39 @@ public class duelo extends JPanel implements KeyListener {
                     if (efeitoMonstro == 7) {
                         if (i == 0) { 
                             invocadoAgora1 = false;
-                            invocadoAgora4 = false;
                             System.out.println("Efeito 7 ativado para o monstro na posição 0: " + monstro);
                         } else if (i == 1) {
                             invocadoAgora2 = false;
-                            invocadoAgora5 = false;
                             System.out.println("Efeito 7 ativado para o monstro na posição 1: " + monstro);
                         } else if (i == 2) {
                             invocadoAgora3 = false;
-                            invocadoAgora6 = false;
                             System.out.println("Efeito 7 ativado para o monstro na posição 2: " + monstro);
+                        }
+                    }
+                }
+            }
+        }
+    	}
+    	if (turnoJogador2) {
+            for (int i = 0; i < listaMonstros.length; i++) {
+                String monstro = listaMonstros[i];
+
+                if (monstro != null) {
+                    int[] atributosMonstro = status.getAtributosMonstro(monstro);
+                    if (atributosMonstro != null) {
+                        int efeitoMonstro = atributosMonstro[3];
+
+                        if (efeitoMonstro == 7) {
+                            if (i == 0) { 
+                                invocadoAgora4 = false;
+                                System.out.println("Efeito 7 ativado para o monstro do jogador 2 na posição 0: " + monstro);
+                            } else if (i == 1) {
+                                invocadoAgora5 = false;
+                                System.out.println("Efeito 7 ativado para o monstro do jogador 2 na posição 1: " + monstro);
+                            } else if (i == 2) {
+                                invocadoAgora6 = false;
+                                System.out.println("Efeito 7 ativado para o monstro do jogador 2 na posição 2: " + monstro);
+                            }
                         }
                     }
                 }
@@ -666,10 +691,10 @@ public class duelo extends JPanel implements KeyListener {
                 break;
             case 4:
             	if (turnoJogador1) {
-                	pontosVidaJogador1 += 1000;
+                	pontosVidaJogador2 += 1000;
                 	}
                 	if (turnoJogador2) {
-                	pontosVidaJogador2 += 1000;
+                	pontosVidaJogador1 += 1000;
                 	}
                 System.out.println("O monstro " + carta + " aplica o efeito 4.");
                 break;
@@ -688,6 +713,7 @@ public class duelo extends JPanel implements KeyListener {
                 break;
             case 7:
             	verificarEfeitoMonstro7(monstros);
+            	verificarEfeitoMonstro7(monstros2);
                 System.out.println("O monstro " + carta + " aplica o efeito 7.");
                 break;
             default:
@@ -704,10 +730,10 @@ public class duelo extends JPanel implements KeyListener {
                 break;
             case 2:
             	if (turnoJogador1) {
-            	pontosVidaJogador1 += 500;
+            	pontosVidaJogador2 += 500;
             	}
             	if (turnoJogador2) {
-            	pontosVidaJogador2 += 500;
+            	pontosVidaJogador1 += 500;
             	}
                 break;
             case 3:
@@ -716,6 +742,14 @@ public class duelo extends JPanel implements KeyListener {
             	}
             	if (turnoJogador2) {
             	pontosVidaJogador2 -= 300;
+            	}
+            	break;
+            case 4:
+            	if (turnoJogador1) {
+                raigeki2();
+                	}
+            	if (turnoJogador2) {
+            	raigeki1();
             	}
                 break;
             case 5:
@@ -730,7 +764,12 @@ public class duelo extends JPanel implements KeyListener {
     private void efeitoFeitico(int valor) {
         switch (valor) {
             case 1:
+            	if (turnoJogador1) {
             	espada = true;
+            	}
+            	if (turnoJogador2) {
+                espada2 = true;
+                }
                 break;
             case 2:
             	campofogo = true;
@@ -834,14 +873,14 @@ public class duelo extends JPanel implements KeyListener {
 
                     if (dano > 0) {
                         pontosVidaJogador1 -= dano;
-                        System.out.println("O monstro alvo sofreu " + dano + " de dano! Pontos de vida restantes do jogador 2: " + pontosVidaJogador2);
+                        System.out.println("O monstro alvo sofreu " + dano + " de dano! Pontos de vida restantes do jogador 2: " + pontosVidaJogador1);
                         removerDaLista(monstros2, monstroSelecionadoAlvo);
                         adicionarNaLista(cemiterio2, monstroSelecionadoAlvo);
                         verificarVencedor();
                         resetarSelecoes();
                     } else if (dano < 0) {
                         pontosVidaJogador2 += dano;
-                        System.out.println("O monstro alvo tinha mais poder: " + dano + ". Pontos de vida restantes do jogador 1: " + pontosVidaJogador1);
+                        System.out.println("O monstro alvo tinha mais poder: " + dano + ". Pontos de vida restantes do jogador 1: " + pontosVidaJogador2);
                         verificarVencedor();
                         resetarSelecoes();
                     }
@@ -870,7 +909,7 @@ public class duelo extends JPanel implements KeyListener {
                     if (campoagua && atributosAtacante[4] == 3) {
                         ataqueAtacante += 200;
                     }
-                    if (espada) {
+                    if (espada2) {
                         ataqueAtacante += 500;
                     }
 
@@ -883,14 +922,14 @@ public class duelo extends JPanel implements KeyListener {
 
                     if (dano > 0) {
                         pontosVidaJogador2 -= dano;
-                        System.out.println("O monstro alvo sofreu " + dano + " de dano! Pontos de vida restantes do jogador 1: " + pontosVidaJogador1);
+                        System.out.println("O monstro alvo sofreu " + dano + " de dano! Pontos de vida restantes do jogador 1: " + pontosVidaJogador2);
                         removerDaLista(monstros, monstroSelecionadoAlvo);
                         adicionarNaLista(cemiterio1, monstroSelecionadoAlvo);
                         verificarVencedor();
                         resetarSelecoes();
                     } else if (dano < 0) {
                         pontosVidaJogador1 += dano;
-                        System.out.println("O monstro alvo tinha mais poder: " + dano + ". Pontos de vida restantes do jogador 2: " + pontosVidaJogador2);
+                        System.out.println("O monstro alvo tinha mais poder: " + dano + ". Pontos de vida restantes do jogador 2: " + pontosVidaJogador1);
                         verificarVencedor();
                         resetarSelecoes();
                     }
@@ -948,10 +987,10 @@ public class duelo extends JPanel implements KeyListener {
         graficos.setFont(new Font("Arial", Font.BOLD, 48));
 
         graficos.drawString(String.valueOf(pontosVidaJogador1), 0, 140);
-        graficos.drawString(String.valueOf(pontosVidaJogador2), 950, 580);
+        graficos.drawString(String.valueOf(pontosVidaJogador2), 0, 580);
         graficos.drawString(String.valueOf(contador), 0, 50);
         graficos.drawString(String.valueOf(turno), 0, 200);
-        graficos.drawString(String.valueOf(cristalInvocacao), 0, 600);
+        graficos.drawString(String.valueOf(cristalInvocacao), 950, 600);
         graficos.setFont(new Font("Arial", Font.BOLD, 30));
         if(faseBatalha) {
         g.drawString("Fase de Batalha", 20, 300);
@@ -963,7 +1002,7 @@ public class duelo extends JPanel implements KeyListener {
             g.drawString("Fase Principal", 20, 300);
             }
 
-        if (turnoJogador1) {
+        if (turnoJogador1 && !faseBatalha) {
             graficos.drawImage(setaB, x, y, this);
 
             if (turnoAtualizado) {
@@ -983,7 +1022,7 @@ public class duelo extends JPanel implements KeyListener {
             if (turno >= 10 && cristalInvocacao >= 10) graficos.drawImage(cristal, 310, 530, this);
         }
 
-        if (turnoJogador2) {
+        if (turnoJogador2 && !faseBatalha) {
             graficos.drawImage(setaC, x2, y2, this);
 
             if (turnoAtualizado) {
@@ -1006,6 +1045,7 @@ public class duelo extends JPanel implements KeyListener {
         int x = 200, y = 585;
         
         for (int i = 0; i < maojogador1.length; i++) {
+        	if(turnoJogador1) {
             String carta = maojogador1[i];
             if (carta != null) {
                 switch (carta) {
@@ -1132,13 +1172,13 @@ public class duelo extends JPanel implements KeyListener {
                         
                 }
                 x += 100;
-            }
+            }}
         }
 
         x = 200;
         y = 0;
-
         for (int i = 0; i < maojogador2.length; i++) {
+        	if(turnoJogador2) {
             String carta = maojogador2[i];
             if (carta != null) {
                 switch (carta) {
@@ -1264,12 +1304,13 @@ public class duelo extends JPanel implements KeyListener {
                         break;
                 }
                 x += 100;
-            }
+            }}
             
             //System.out.println(Arrays.toString(monstros));
             //System.out.println(Arrays.toString(magiasefeiticos));
-            //System.out.println(Arrays.toString(monstrosInvocadosTurnoAnterior));
-            //System.out.println(Arrays.toString(monstrosInvocadosTurno));
+            //System.out.println(Arrays.toString(monstros));
+            //System.out.println(Arrays.toString(monstros));
+            //System.out.println(Arrays.toString(monstros2));
 
             yMonstros = 360;
 
@@ -1553,17 +1594,6 @@ public class duelo extends JPanel implements KeyListener {
             }
             
         }
-        if (turnoJogador1) {
-        	graficos.drawImage(tela, 150, 0, this);
-        }
-        if (turnoJogador2) {
-        	graficos.drawImage(tela, 140, 585, this);
-        }
-        
-        if (faseBatalha) {
-        	graficos.drawImage(tela, 150, 0, this);
-        	graficos.drawImage(tela, 140, 585, this);
-        }
         
         if (mostrarEfeitos) {
             graficos.drawImage(efeitos, 620, 30, this);
@@ -1636,7 +1666,6 @@ public class duelo extends JPanel implements KeyListener {
                     textoAtaque = false;
                 	textoDefesa = true;
                     if(monstros2[0] == null && monstros2[1] == null && monstros2[2] == null) {
-                    	
                     	monstroSelecionadoAlvo = "nulo";
                     	System.out.println("Monstro alvo selecionado: " + monstroSelecionadoAlvo);
                     	realizarCombate();
