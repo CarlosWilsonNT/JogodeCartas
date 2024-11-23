@@ -66,11 +66,14 @@ public class deckplayer1 extends JPanel implements KeyListener {
     
     private JButton Confirmar;
     private Image efeitos;
+    private Image comojogar;
 
     private boolean mostrarEfeitos = false;
+    private boolean mostrarDicas = false;
     private boolean deckcheio = false;
     
     private JButton botaoEfeitos;
+    private JButton botaoComojogar;
     
     private final int coordX = 20;
     private final int coordY = 85;
@@ -219,6 +222,9 @@ public class deckplayer1 extends JPanel implements KeyListener {
         
         ImageIcon imagemEfeitos = new ImageIcon("banco_i/efeitos.png");
         efeitos = imagemEfeitos.getImage();
+        
+        ImageIcon imagemcomojogar = new ImageIcon("banco_i/comojogar1.png");
+        comojogar = imagemcomojogar.getImage();
 
         Confirmar = new JButton("Confirmar");
         Confirmar.setBounds(490, 0, 100, 40);
@@ -230,7 +236,7 @@ public class deckplayer1 extends JPanel implements KeyListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Conteiner parentFrame = (Conteiner) getTopLevelAncestor();
-              //embaralharDeck(deck1);
+                embaralharDeck(deck1);
                 parentFrame.irPraraDeck2();
             }
         });
@@ -248,6 +254,20 @@ public class deckplayer1 extends JPanel implements KeyListener {
         setLayout(null);
         botaoEfeitos.setFocusable(false);
         add(botaoEfeitos);
+        
+        botaoComojogar = new JButton("Como Jogar");
+        botaoComojogar.setBounds(920, 0, 130, 30);
+        botaoComojogar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarDicas = !mostrarDicas;
+                repaint();
+            }
+        });
+        
+        setLayout(null);
+        botaoComojogar.setFocusable(false);
+        add(botaoComojogar);
     }
     
     public void verificarDeckCheio() {
@@ -257,17 +277,17 @@ public class deckplayer1 extends JPanel implements KeyListener {
                 contador++;
             }
         }
-        deckcheio = (contador >= 6);
+        deckcheio = (contador == 30);
     }
     
-   //public void embaralharDeck(String[] deck) {
-       // for (int i = deck.length - 1; i > 0; i--) {
-          //  int j = (int) (Math.random() * (i + 1));
-          //  String temp = deck[i];
-           // deck[i] = deck[j];
-         //   deck[j] = temp;
-        //}
-  //  }
+   public void embaralharDeck(String[] deck) {
+        for (int i = deck.length - 1; i > 0; i--) {
+            int j = (int) (Math.random() * (i + 1));
+            String temp = deck[i];
+            deck[i] = deck[j];
+            deck[j] = temp;
+        }
+    }
     
 //movimentação e adição a lista
     @Override
@@ -652,6 +672,137 @@ public class deckplayer1 extends JPanel implements KeyListener {
             	printDeck();
             }
         }
+        if (key == KeyEvent.VK_BACK_SPACE) {
+            String remover = null;
+            if (x == 580 && y == 55) {
+            	remover = "lobo";
+            } else if (x == 680 && y == 55) {
+            	remover = "abelha";
+            }
+            else if (x == 780 && y == 55) {
+                remover = "aguia";
+              }
+            else if (x == 880 && y == 55) {
+                remover = "aranha";
+              }
+            else if (x == 980 && y == 55) {
+                remover = "besouro";
+              }
+            else if (x == 580 && y == 155) {
+                remover = "cobra";
+              }
+            else if (x == 680 && y == 155) {
+                remover = "enguia";
+              }
+            else if (x == 780 && y == 155) {
+                remover = "dragao relampago";
+              }
+            else if (x == 880 && y == 155) {
+                remover = "tigre";
+              }
+            else if (x == 980 && y == 155) {
+                remover = "guerreiro alado";
+              }
+            else if (x == 580 && y == 255) {
+                remover = "gato";
+              }
+            else if (x == 680 && y == 255) {
+                remover = "cobra de fogo";
+              }
+            else if (x == 780 && y == 255) {
+                remover = "coelho";
+              }
+            else if (x == 880 && y == 255) {
+                remover = "dragao de fogo";
+              }
+            else if (x == 980 && y == 255) {
+                remover = "fenix";
+              }
+            else if (x == 580 && y == 355) {
+                remover = "guerreiro";
+              }
+            else if (x == 680 && y == 355) {
+                remover = "leao";
+              }
+            else if (x == 780 && y == 355) {
+                remover = "raposa";
+              }
+            else if (x == 880 && y == 355) {
+                remover = "tigre de fogo";
+              }
+            else if (x == 980 && y == 355) {
+                remover = "cavalo";
+              }
+            else if (x == 580 && y == 455) {
+                remover = "cobra marinha";
+              }
+            else if (x == 680 && y == 455) {
+                remover = "golfinho";
+              }
+            else if (x == 780 && y == 455) {
+                remover = "peixe pequeno";
+              }
+            else if (x == 880 && y == 455) {
+                remover = "peixe";
+              }
+            else if (x == 980 && y == 455) {
+                remover = "sapo";
+              }
+            else if (x == 580 && y == 555) {
+                remover = "sereia";
+              }
+            else if (x == 680 && y == 555) {
+                remover = "tartaruga";
+              }
+            else if (x == 780 && y == 555) {
+                remover = "tubarao";
+              }
+            else if (x == 880 && y == 555) {
+                remover = "dragao marinho";
+              }
+            else if (x == 980 && y == 555) {
+                remover = "jacare";
+              }
+            else if (x == 580 && y == 655) {
+                remover = "compra";
+              }
+            else if (x == 680 && y == 655) {
+                remover = "vida";
+              }
+            else if (x == 780 && y == 655) {
+                remover = "destruicao";
+              }
+            else if (x == 880 && y == 655) {
+                remover = "ataque";
+              }
+            else if (x == 980 && y == 655) {
+                remover = "defesa";
+              }
+            else if (x == 580 && y == 755) {
+                remover = "dano";
+              }
+            else if (x == 680 && y == 755) {
+                remover = "equipamento";
+              }
+            else if (x == 780 && y == 755) {
+                remover = "campoF";
+              }
+            else if (x == 880 && y == 755) {
+                remover = "campoR";
+              }
+            else if (x == 980 && y == 755) {
+                remover = "campoA";
+              }
+            if (remover != null) {
+                for (int i = 0; i < getDeck1().length; i++) {
+                    if (remover.equals(getDeck1()[i])) {
+                        getDeck1()[i] = null;
+                        System.out.println("Removido do deck: " + remover);
+                        break;
+                    }
+                }
+            }
+        }
 
         repaint();
     }
@@ -731,7 +882,10 @@ public class deckplayer1 extends JPanel implements KeyListener {
         graficos.drawImage(setaB, x, y, this);
         
         if (mostrarEfeitos) {
-            graficos.drawImage(efeitos, 20, 30, this);
+            graficos.drawImage(efeitos, 0, 30, this);
+        }
+        if (mostrarDicas) {
+            graficos.drawImage(comojogar, 650, 30, this);
         }
     
         
