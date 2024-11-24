@@ -2,6 +2,7 @@ package jogodecartas;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import jogodecartas.Modelo.deckplayer1;
 import jogodecartas.Modelo.deckplayer2;
@@ -30,13 +31,23 @@ public class Conteiner extends JFrame {
     }
 
     public void irParaDeck1() {
-        remove(telaInicialPanel);
-        deck1Panel = new deckplayer1();
-        scrollPane = new JScrollPane(deck1Panel);
-        add(scrollPane);
-        revalidate();
         repaint();
-        deck1Panel.requestFocusInWindow();
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            SwingUtilities.invokeLater(() -> {
+                remove(telaInicialPanel);
+                deck1Panel = new deckplayer1();
+                scrollPane = new JScrollPane(deck1Panel);
+                add(scrollPane);
+                revalidate();
+                repaint();
+                deck1Panel.requestFocusInWindow();
+            });
+        }).start();
     }
 
     public void irPraraDeck2() {
