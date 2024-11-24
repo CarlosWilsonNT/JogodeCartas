@@ -23,46 +23,6 @@ public class duelo extends JPanel implements KeyListener {
     private Image fundo;
     private Image deck;
     private Image cristal;
-    private Image lobo;
-    private Image abelha;
-    private Image aguia;
-    private Image aranha;
-    private Image besouro;
-    private Image cobraR;
-    private Image enguia;
-    private Image dragaoR;
-    private Image tigreR;
-    private Image guerreiroA;
-    private Image gato;
-    private Image cobraF;
-    private Image coelho;
-    private Image dragaoF;
-    private Image fenix;
-    private Image guerreiro;
-    private Image leao;
-    private Image raposa;
-    private Image tigre;
-    private Image cavalo;
-    private Image cobraM;
-    private Image golfinho;
-    private Image peixeP;
-    private Image peixe;
-    private Image sapo;
-    private Image sereia;
-    private Image tartaruga;
-    private Image tubarao;
-    private Image dragaoM;
-    private Image jacare;
-    private Image compra;
-    private Image cura;
-    private Image destruir;
-    private Image ataque;
-    private Image defesa;
-    private Image dano;
-    private Image equipamento;
-    private Image campoF;
-    private Image campoR;
-    private Image campoA;
     
     private Image setaB;
     private Image setaC;
@@ -155,6 +115,7 @@ public class duelo extends JPanel implements KeyListener {
     public duelo(String[] deck1, String[] deck2) {
     	
     	iniciarJogo();
+    	Imagens.carregarImagens();
     	
     	this.deck1 = deck1;
         this.deck2 = deck2;
@@ -192,127 +153,7 @@ public class duelo extends JPanel implements KeyListener {
         
         ImageIcon imagecristal = new ImageIcon("banco_i/cristal.png");
         cristal = imagecristal.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartalobo = new ImageIcon("banco_i/lobo.png");
-        lobo = cartalobo.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartaabelha = new ImageIcon("banco_i/abelha.png");
-        abelha = cartaabelha.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartaaguia = new ImageIcon("banco_i/aguia.png");
-        aguia = cartaaguia.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartaaranha = new ImageIcon("banco_i/aranha.png");
-        aranha = cartaaranha.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartabesouro = new ImageIcon("banco_i/besouro.png");
-        besouro = cartabesouro.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartacobraR = new ImageIcon("banco_i/cobra de raio.png");
-        cobraR = cartacobraR.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartaenguia = new ImageIcon("banco_i/enguia.png");
-        enguia = cartaenguia.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartadragaoR = new ImageIcon("banco_i/dragão relampago.png");
-        dragaoR = cartadragaoR.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartatigreR = new ImageIcon("banco_i/tigre raio.png");
-        tigreR = cartatigreR.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartaguerreiroA = new ImageIcon("banco_i/guerreiro alado.png");
-        guerreiroA = cartaguerreiroA.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartagato = new ImageIcon("banco_i/gato.png");
-        gato = cartagato.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartacobraF = new ImageIcon("banco_i/cobra de fogo.png");
-        cobraF = cartacobraF.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartacoelho = new ImageIcon("banco_i/coelho.png");
-        coelho = cartacoelho.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartadragaoF = new ImageIcon("banco_i/dragao de fogo.png");
-        dragaoF = cartadragaoF.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartafenix = new ImageIcon("banco_i/fenix.png");
-        fenix = cartafenix.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartaguerreiro = new ImageIcon("banco_i/guerreiro.png");
-        guerreiro = cartaguerreiro.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartaleao = new ImageIcon("banco_i/leao.png");
-        leao = cartaleao.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartaraposa = new ImageIcon("banco_i/raposa.png");
-        raposa = cartaraposa.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartatigre = new ImageIcon("banco_i/tigre.png");
-        tigre = cartatigre.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartacavalo = new ImageIcon("banco_i/cavalo.png");
-        cavalo = cartacavalo.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartacobraM = new ImageIcon("banco_i/cobra marinha.png");
-        cobraM = cartacobraM.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartagolfinho = new ImageIcon("banco_i/golfinho.png");
-        golfinho = cartagolfinho.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartapeixeP = new ImageIcon("banco_i/peixe pequeno.png");
-        peixeP = cartapeixeP.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartapeixe = new ImageIcon("banco_i/peixe.png");
-        peixe = cartapeixe.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartasapo = new ImageIcon("banco_i/sapo.png");
-        sapo = cartasapo.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartasereia = new ImageIcon("banco_i/sereia.png");
-        sereia = cartasereia.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartatartaruga = new ImageIcon("banco_i/tartaruga.png");
-        tartaruga = cartatartaruga.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartatubarao = new ImageIcon("banco_i/tubarao.png");
-        tubarao = cartatubarao.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartadragaoM = new ImageIcon("banco_i/dragao.png");
-        dragaoM = cartadragaoM.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartajacare = new ImageIcon("banco_i/jacare.png");
-        jacare = cartajacare.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartacompra = new ImageIcon("banco_i/carta de magia compra.png");
-        compra = cartacompra.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartacura = new ImageIcon("banco_i/carta de magia cura.png");
-        cura = cartacura.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
 
-        ImageIcon cartadestruir = new ImageIcon("banco_i/carta de magia destruir.png");
-        destruir = cartadestruir.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartaataque = new ImageIcon("banco_i/carta de magia aumentar ataque.png");
-        ataque = cartaataque.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartadefesa = new ImageIcon("banco_i/carta de magia reduz defesa.png");
-        defesa = cartadefesa.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartadano= new ImageIcon("banco_i/carta de magia bola de fogo.png");
-        dano = cartadano.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartaequipamento = new ImageIcon("banco_i/equipamento.png");
-        equipamento = cartaequipamento.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartacampoF = new ImageIcon("banco_i/campo de fogo.png");
-        campoF = cartacampoF.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartacampoR = new ImageIcon("banco_i/campo de raios.png");
-        campoR = cartacampoR.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
-        ImageIcon cartacampoA = new ImageIcon("banco_i/campo de agua.png");
-        campoA = cartacampoA.getImage().getScaledInstance(90, 95, Image.SCALE_SMOOTH);
-        
         ImageIcon cartasetaB = new ImageIcon("banco_i/setabaixo.png");
         setaB = cartasetaB.getImage();
         
@@ -567,7 +408,7 @@ public class duelo extends JPanel implements KeyListener {
                 if (temEspacoNaLista(cemiterio)) {
                     adicionarNaLista(cemiterio, monstro);
                     System.out.println("Monstro transferido para o cemitério de " + jogador + ": " + monstro);
-                    monstros[i] = null; // Remove o monstro da lista de monstros
+                    monstros[i] = null;
                 } else {
                     System.out.println("Não há espaço no cemitério de " + jogador + " para o monstro: " + monstro);
                 }
@@ -588,7 +429,7 @@ public class duelo extends JPanel implements KeyListener {
     	if (turnoJogador2) {
             for (int i = 0; i < magiasefeiticos.length; i++) {
                 if (magiasefeiticos[i] != null) {
-                    System.out.println("Magia/Feitiço do oponente destruída: " + magiasefeiticos[i]);
+                    System.out.println("Feitiço do oponente destruído: " + magiasefeiticos[i]);
                     magiasefeiticos[i] = null;
                     break;
                 }
@@ -622,58 +463,55 @@ public class duelo extends JPanel implements KeyListener {
         System.out.println("Nenhum monstro válido no cemitério para " + jogador + ".");
     }
     
-    private void verificarEfeitoMonstro7(String[] listaMonstros) {
-    	if (turnoJogador1) {
-        for (int i = 0; i < listaMonstros.length; i++) {
-            String monstro = listaMonstros[i];
+    private void rapidez(String[] listaMonstros) {
+        if (turnoJogador1) {
+            for (int i = 0; i < listaMonstros.length; i++) {
+                String monstroNome = listaMonstros[i];
 
-            if (monstro != null) {
-                int[] atributosMonstro = status.getAtributosMonstro(monstro);
-                if (atributosMonstro != null) {
-                    int efeitoMonstro = atributosMonstro[3];
+                if (monstroNome != null) {
+                    Monstro monstro = new Monstro(monstroNome);
+                    int efeitoMonstro = monstro.getEfeito();
 
                     if (efeitoMonstro == 7) {
                         if (i == 0) { 
                             invocadoAgora1 = false;
-                            System.out.println("Efeito 7 ativado para o monstro na posição 0: " + monstro);
+                            System.out.println("Efeito 7 ativado para o monstro na posição 0: " + monstroNome);
                         } else if (i == 1) {
                             invocadoAgora2 = false;
-                            System.out.println("Efeito 7 ativado para o monstro na posição 1: " + monstro);
+                            System.out.println("Efeito 7 ativado para o monstro na posição 1: " + monstroNome);
                         } else if (i == 2) {
                             invocadoAgora3 = false;
-                            System.out.println("Efeito 7 ativado para o monstro na posição 2: " + monstro);
+                            System.out.println("Efeito 7 ativado para o monstro na posição 2: " + monstroNome);
                         }
                     }
                 }
             }
         }
-    	}
-    	if (turnoJogador2) {
+    
+        if (turnoJogador2) {
             for (int i = 0; i < listaMonstros.length; i++) {
-                String monstro = listaMonstros[i];
+                String monstroNome = listaMonstros[i];
+                if (monstroNome != null) {
+                    Monstro monstro = new Monstro(monstroNome);
+                    int efeitoMonstro = monstro.getEfeito();
 
-                if (monstro != null) {
-                    int[] atributosMonstro = status.getAtributosMonstro(monstro);
-                    if (atributosMonstro != null) {
-                        int efeitoMonstro = atributosMonstro[3];
-
-                        if (efeitoMonstro == 7) {
-                            if (i == 0) { 
-                                invocadoAgora4 = false;
-                                System.out.println("Efeito 7 ativado para o monstro do jogador 2 na posição 0: " + monstro);
-                            } else if (i == 1) {
-                                invocadoAgora5 = false;
-                                System.out.println("Efeito 7 ativado para o monstro do jogador 2 na posição 1: " + monstro);
-                            } else if (i == 2) {
-                                invocadoAgora6 = false;
-                                System.out.println("Efeito 7 ativado para o monstro do jogador 2 na posição 2: " + monstro);
-                            }
+                    if (efeitoMonstro == 7) {
+                        if (i == 0) {
+                            invocadoAgora4 = false;
+                            System.out.println("Efeito 7 ativado para o monstro do jogador 2 na posição 0: " + monstroNome);
+                        } else if (i == 1) {
+                            invocadoAgora5 = false;
+                            System.out.println("Efeito 7 ativado para o monstro do jogador 2 na posição 1: " + monstroNome);
+                        } else if (i == 2) {
+                            invocadoAgora6 = false;
+                            System.out.println("Efeito 7 ativado para o monstro do jogador 2 na posição 2: " + monstroNome);
                         }
                     }
                 }
             }
         }
-    }
+       }
+    
     
     private void aplicarEfeitoMonstro(int efeito, String carta) {
         switch (efeito) {
@@ -687,6 +525,7 @@ public class duelo extends JPanel implements KeyListener {
                 break;
             case 3:
             	destruirMagiaFeiticoOponente();
+            	verificarMagias(magiasefeiticos, magiasefeiticos2);
                 System.out.println("O monstro " + carta + " aplica o efeito 3.");
                 break;
             case 4:
@@ -712,8 +551,8 @@ public class duelo extends JPanel implements KeyListener {
                 System.out.println("O monstro " + carta + " aplica o efeito 6.");
                 break;
             case 7:
-            	verificarEfeitoMonstro7(monstros);
-            	verificarEfeitoMonstro7(monstros2);
+            	rapidez(monstros);
+            	rapidez(monstros2);
                 System.out.println("O monstro " + carta + " aplica o efeito 7.");
                 break;
             default:
@@ -809,6 +648,38 @@ public class duelo extends JPanel implements KeyListener {
         return -1;
     }
 
+    private void verificarMagias(String[] magiasefeiticos, String[] magiasefeiticos2) {
+        boolean equipExiste = verificarTermo(magiasefeiticos, magiasefeiticos2, "equipameto");
+        boolean campoAExiste = verificarTermo(magiasefeiticos, magiasefeiticos2, "campoA");
+        boolean campoFExiste = verificarTermo(magiasefeiticos, magiasefeiticos2, "campoF");
+        boolean campoRExiste = verificarTermo(magiasefeiticos, magiasefeiticos2, "campoR");
+
+        if (turnoJogador1) {
+            if (!equipExiste) espada2 = false;	
+        }
+        if (turnoJogador2) {
+            if (!equipExiste) espada = false;	
+        }
+        if (!campoAExiste) campoagua = false;
+        if (!campoFExiste) campofogo = false;
+        if (!campoRExiste) camporaio = false;
+    }
+
+    private boolean verificarTermo(String[] magiasefeiticos, String[] magiasefeiticos2, String termo) {
+        for (String feitico : magiasefeiticos) {
+            if (feitico.equals(termo)) {
+                return true;
+            }
+        }
+        for (String feitico : magiasefeiticos2) {
+            if (feitico.equals(termo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
     private void transferirPrimeiroTermo() {
     	if (turnoJogador1) {
         if (deck1[0] != null) {
@@ -883,6 +754,12 @@ public class duelo extends JPanel implements KeyListener {
                         System.out.println("O monstro alvo tinha mais poder: " + dano + ". Pontos de vida restantes do jogador 1: " + pontosVidaJogador2);
                         verificarVencedor();
                         resetarSelecoes();
+                    }else if (dano == 0) {
+                        removerDaLista(monstros2, monstroSelecionadoAlvo);
+                        adicionarNaLista(cemiterio2, monstroSelecionadoAlvo);
+                        removerDaLista(monstros, monstroSelecionadoAtacante);
+                        adicionarNaLista(cemiterio1, monstroSelecionadoAtacante);
+                        resetarSelecoes();
                     }
                 }
             } 
@@ -931,6 +808,12 @@ public class duelo extends JPanel implements KeyListener {
                         pontosVidaJogador1 += dano;
                         System.out.println("O monstro alvo tinha mais poder: " + dano + ". Pontos de vida restantes do jogador 2: " + pontosVidaJogador1);
                         verificarVencedor();
+                        resetarSelecoes();
+                    }else if (dano == 0) {
+                        removerDaLista(monstros, monstroSelecionadoAlvo);
+                        adicionarNaLista(cemiterio1, monstroSelecionadoAlvo);
+                        removerDaLista(monstros2, monstroSelecionadoAtacante);
+                        adicionarNaLista(cemiterio2, monstroSelecionadoAtacante);
                         resetarSelecoes();
                     }
                 } 
@@ -1042,138 +925,142 @@ public class duelo extends JPanel implements KeyListener {
             if (turno >= 10 && cristalInvocacao >= 10) graficos.drawImage(cristal, 710, 280, this);
         }
         
-        int x = 200, y = 585;
-        
+        int x = 200, y = 585;    
         for (int i = 0; i < maojogador1.length; i++) {
-        	if(turnoJogador1) {
-            String carta = maojogador1[i];
-            if (carta != null) {
-                switch (carta) {
-                    case "lobo":
-                        graficos.drawImage(lobo, x, y, this);
-                        break;
-                    case "abelha":
-                        graficos.drawImage(abelha, x, y, this);
-                        break;                        
-                    case "aguia":
-                        graficos.drawImage(aguia, x, y, this);
-                        break;
-                    case "aranha":
-                        graficos.drawImage(aranha, x, y, this);
-                        break;
-                    case "besouro":
-                        graficos.drawImage(besouro, x, y, this);
-                        break;
-                    case "cobra":
-                        graficos.drawImage(cobraR, x, y, this);
-                        break;
-                    case "enguia":
-                        graficos.drawImage(enguia, x, y, this);
-                        break;
-                    case "dragao relampago":
-                        graficos.drawImage(dragaoR, x, y, this);
-                        break;
-                    case "tigre":
-                        graficos.drawImage(tigreR, x, y, this);
-                        break;
-                    case "guerreiro alado":
-                        graficos.drawImage(guerreiroA, x, y, this);
-                        break;
-                    case "gato":
-                        graficos.drawImage(gato, x, y, this);
-                        break;
-                    case "cobra de fogo":
-                        graficos.drawImage(cobraF, x, y, this);
-                        break;
-                    case "coelho":
-                        graficos.drawImage(coelho, x, y, this);
-                        break;
-                    case "dragao de fogo":
-                        graficos.drawImage(dragaoF, x, y, this);
-                        break;
-                    case "fenix":
-                        graficos.drawImage(fenix, x, y, this);
-                        break;
-                    case "guerreiro":
-                        graficos.drawImage(guerreiro, x, y, this);
-                        break;
-                    case "leao":
-                        graficos.drawImage(leao, x, y, this);
-                        break;
-                    case "raposa":
-                        graficos.drawImage(raposa, x, y, this);
-                        break;
-                    case "tigre de fogo":
-                        graficos.drawImage(tigre, x, y, this);
-                        break;
-                    case "cavalo":
-                        graficos.drawImage(cavalo, x, y, this);
-                        break;
-                    case "cobra marinha":
-                        graficos.drawImage(cobraM, x, y, this);
-                        break;
-                    case "golfinho":
-                        graficos.drawImage(golfinho, x, y, this);
-                        break;
-                    case "peixe pequeno":
-                        graficos.drawImage(peixeP, x, y, this);
-                        break;
-                    case "peixe":
-                        graficos.drawImage(peixe, x, y, this);
-                        break;
-                    case "sapo":
-                        graficos.drawImage(sapo, x, y, this);
-                        break;
-                    case "sereia":
-                        graficos.drawImage(sereia, x, y, this);
-                        break;
-                    case "tartaruga":
-                        graficos.drawImage(tartaruga, x, y, this);
-                        break;
-                    case "tubarao":
-                        graficos.drawImage(tubarao, x, y, this);
-                        break;
-                    case "dragao marinho":
-                        graficos.drawImage(dragaoM, x, y, this);
-                        break;
-                    case "jacare":
-                        graficos.drawImage(jacare, x, y, this);
-                        break;
-                    case "compra":
-                        graficos.drawImage(compra, x, y, this);
-                        break;
-                    case "vida":
-                        graficos.drawImage(cura, x, y, this);
-                        break;
-                    case "destruicao":
-                        graficos.drawImage(destruir, x, y, this);
-                        break;
-                    case "ataque":
-                        graficos.drawImage(ataque, x, y, this);
-                        break;
-                    case "defesa":
-                        graficos.drawImage(defesa, x, y, this);
-                        break;
-                    case "dano":
-                        graficos.drawImage(dano, x, y, this);
-                        break;
-                    case "equipamento":
-                        graficos.drawImage(equipamento, x, y, this);
-                        break;
-                    case "campoF":
-                        graficos.drawImage(campoF, x, y, this);
-                        break;
-                    case "campoR":
-                        graficos.drawImage(campoR, x, y, this);
-                        break;   
-                    case "campoA":
-                        graficos.drawImage(campoA, x, y, this);
-                        break;                       
-                        
+            if (turnoJogador1) {
+                String carta = maojogador1[i];
+                if (carta != null) {
+                    switch (carta) {
+                        case "lobo":
+                            graficos.drawImage(Imagens.lobo, x, y, this);
+                            break;
+                        case "abelha":
+                            graficos.drawImage(Imagens.abelha, x, y, this);
+                            break;
+                        case "aguia":
+                            graficos.drawImage(Imagens.aguia, x, y, this);
+                            break;
+                        case "aranha":
+                            graficos.drawImage(Imagens.aranha, x, y, this);
+                            break;
+                        case "besouro":
+                            graficos.drawImage(Imagens.besouro, x, y, this);
+                            break;
+                        case "cobra":
+                            graficos.drawImage(Imagens.cobraR, x, y, this);
+                            break;
+                        case "enguia":
+                            graficos.drawImage(Imagens.enguia, x, y, this);
+                            break;
+                        case "dragao relampago":
+                            graficos.drawImage(Imagens.dragaoR, x, y, this);
+                            break;
+                        case "tigre":
+                            graficos.drawImage(Imagens.tigreR, x, y, this);
+                            break;
+                        case "guerreiro alado":
+                            graficos.drawImage(Imagens.guerreiroA, x, y, this);
+                            break;
+                        case "gato":
+                            graficos.drawImage(Imagens.gato, x, y, this);
+                            break;
+                        case "cobra de fogo":
+                            graficos.drawImage(Imagens.cobraF, x, y, this);
+                            break;
+                        case "coelho":
+                            graficos.drawImage(Imagens.coelho, x, y, this);
+                            break;
+                        case "dragao de fogo":
+                            graficos.drawImage(Imagens.dragaoF, x, y, this);
+                            break;
+                        case "fenix":
+                            graficos.drawImage(Imagens.fenix, x, y, this);
+                            break;
+                        case "guerreiro":
+                            graficos.drawImage(Imagens.guerreiro, x, y, this);
+                            break;
+                        case "leao":
+                            graficos.drawImage(Imagens.leao, x, y, this);
+                            break;
+                        case "raposa":
+                            graficos.drawImage(Imagens.raposa, x, y, this);
+                            break;
+                        case "tigre de fogo":
+                            graficos.drawImage(Imagens.tigre, x, y, this);
+                            break;
+                        case "cavalo":
+                            graficos.drawImage(Imagens.cavalo, x, y, this);
+                            break;
+                        case "cobra marinha":
+                            graficos.drawImage(Imagens.cobraM, x, y, this);
+                            break;
+                        case "golfinho":
+                            graficos.drawImage(Imagens.golfinho, x, y, this);
+                            break;
+                        case "peixe pequeno":
+                            graficos.drawImage(Imagens.peixeP, x, y, this);
+                            break;
+                        case "peixe":
+                            graficos.drawImage(Imagens.peixe, x, y, this);
+                            break;
+                        case "sapo":
+                            graficos.drawImage(Imagens.sapo, x, y, this);
+                            break;
+                        case "sereia":
+                            graficos.drawImage(Imagens.sereia, x, y, this);
+                            break;
+                        case "tartaruga":
+                            graficos.drawImage(Imagens.tartaruga, x, y, this);
+                            break;
+                        case "tubarao":
+                            graficos.drawImage(Imagens.tubarao, x, y, this);
+                            break;
+                        case "dragao marinho":
+                            graficos.drawImage(Imagens.dragaoM, x, y, this);
+                            break;
+                        case "jacare":
+                            graficos.drawImage(Imagens.jacare, x, y, this);
+                            break;
+                        case "compra":
+                            graficos.drawImage(Imagens.compra, x, y, this);
+                            break;
+                        case "vida":
+                            graficos.drawImage(Imagens.cura, x, y, this);
+                            break;
+                        case "destruicao":
+                            graficos.drawImage(Imagens.destruir, x, y, this);
+                            break;
+                        case "ataque":
+                            graficos.drawImage(Imagens.ataque, x, y, this);
+                            break;
+                        case "defesa":
+                            graficos.drawImage(Imagens.defesa, x, y, this);
+                            break;
+                        case "dano":
+                            graficos.drawImage(Imagens.dano, x, y, this);
+                            break;
+                        case "equipamento":
+                            graficos.drawImage(Imagens.equipamento, x, y, this);
+                            break;
+                        case "campoF":
+                            graficos.drawImage(Imagens.campoF, x, y, this);
+                            break;
+                        case "campoR":
+                            graficos.drawImage(Imagens.campoR, x, y, this);
+                            break;
+                        case "campoA":
+                            graficos.drawImage(Imagens.campoA, x, y, this);
+                            break;
+                        default:
+                            System.out.println("Carta não reconhecida: " + carta);
+                            break;
+                    }
+                    x += 100;
                 }
-                x += 100;
-            }}
+            }
         }
+
+        
 
         x = 200;
         y = 0;
@@ -1182,126 +1069,129 @@ public class duelo extends JPanel implements KeyListener {
             String carta = maojogador2[i];
             if (carta != null) {
                 switch (carta) {
-                    case "lobo":
-                        graficos.drawImage(lobo, x, y, this);
-                        break;
-                    case "abelha":
-                        graficos.drawImage(abelha, x, y, this);
-                        break;
-                    case "aguia":
-                        graficos.drawImage(aguia, x, y, this);
-                        break;
-                    case "aranha":
-                        graficos.drawImage(aranha, x, y, this);
-                        break;
-                    case "besouro":
-                        graficos.drawImage(besouro, x, y, this);
-                        break;
-                    case "cobra":
-                        graficos.drawImage(cobraR, x, y, this);
-                        break;
-                    case "enguia":
-                        graficos.drawImage(enguia, x, y, this);
-                        break;
-                    case "dragao relampago":
-                        graficos.drawImage(dragaoR, x, y, this);
-                        break;
-                    case "tigre":
-                        graficos.drawImage(tigreR, x, y, this);
-                        break;
-                    case "guerreiro alado":
-                        graficos.drawImage(guerreiroA, x, y, this);
-                        break;
-                    case "gato":
-                        graficos.drawImage(gato, x, y, this);
-                        break;
-                    case "cobra de fogo":
-                        graficos.drawImage(cobraF, x, y, this);
-                        break;
-                    case "coelho":
-                        graficos.drawImage(coelho, x, y, this);
-                        break;
-                    case "dragao de fogo":
-                        graficos.drawImage(dragaoF, x, y, this);
-                        break;
-                    case "fenix":
-                        graficos.drawImage(fenix, x, y, this);
-                        break;
-                    case "guerreiro":
-                        graficos.drawImage(guerreiro, x, y, this);
-                        break;
-                    case "leao":
-                        graficos.drawImage(leao, x, y, this);
-                        break;
-                    case "raposa":
-                        graficos.drawImage(raposa, x, y, this);
-                        break;
-                    case "tigre de fogo":
-                        graficos.drawImage(tigre, x, y, this);
-                        break;
-                    case "cavalo":
-                        graficos.drawImage(cavalo, x, y, this);
-                        break;
-                    case "cobra marinha":
-                        graficos.drawImage(cobraM, x, y, this);
-                        break;
-                    case "golfinho":
-                        graficos.drawImage(golfinho, x, y, this);
-                        break;
-                    case "peixe pequeno":
-                        graficos.drawImage(peixeP, x, y, this);
-                        break;
-                    case "peixe":
-                        graficos.drawImage(peixe, x, y, this);
-                        break;
-                    case "sapo":
-                        graficos.drawImage(sapo, x, y, this);
-                        break;
-                    case "sereia":
-                        graficos.drawImage(sereia, x, y, this);
-                        break;
-                    case "tartaruga":
-                        graficos.drawImage(tartaruga, x, y, this);
-                        break;
-                    case "tubarao":
-                        graficos.drawImage(tubarao, x, y, this);
-                        break;
-                    case "dragao marinho":
-                        graficos.drawImage(dragaoM, x, y, this);
-                        break;
-                    case "jacare":
-                        graficos.drawImage(jacare, x, y, this);
-                        break;
-                    case "compra":
-                        graficos.drawImage(compra, x, y, this);
-                        break;
-                    case "vida":
-                        graficos.drawImage(cura, x, y, this);
-                        break;
-                    case "destruicao":
-                        graficos.drawImage(destruir, x, y, this);
-                        break;
-                    case "ataque":
-                        graficos.drawImage(ataque, x, y, this);
-                        break;
-                    case "defesa":
-                        graficos.drawImage(defesa, x, y, this);
-                        break;
-                    case "dano":
-                        graficos.drawImage(dano, x, y, this);
-                        break;
-                    case "equipamento":
-                        graficos.drawImage(equipamento, x, y, this);
-                        break;
-                    case "campoF":
-                        graficos.drawImage(campoF, x, y, this);
-                        break;
-                    case "campoR":
-                        graficos.drawImage(campoR, x, y, this);
-                        break;   
-                    case "campoA":
-                        graficos.drawImage(campoA, x, y, this);
-                        break;
+                case "lobo":
+                    graficos.drawImage(Imagens.lobo, x, y, this);
+                    break;
+                case "abelha":
+                    graficos.drawImage(Imagens.abelha, x, y, this);
+                    break;
+                case "aguia":
+                    graficos.drawImage(Imagens.aguia, x, y, this);
+                    break;
+                case "aranha":
+                    graficos.drawImage(Imagens.aranha, x, y, this);
+                    break;
+                case "besouro":
+                    graficos.drawImage(Imagens.besouro, x, y, this);
+                    break;
+                case "cobra":
+                    graficos.drawImage(Imagens.cobraR, x, y, this);
+                    break;
+                case "enguia":
+                    graficos.drawImage(Imagens.enguia, x, y, this);
+                    break;
+                case "dragao relampago":
+                    graficos.drawImage(Imagens.dragaoR, x, y, this);
+                    break;
+                case "tigre":
+                    graficos.drawImage(Imagens.tigreR, x, y, this);
+                    break;
+                case "guerreiro alado":
+                    graficos.drawImage(Imagens.guerreiroA, x, y, this);
+                    break;
+                case "gato":
+                    graficos.drawImage(Imagens.gato, x, y, this);
+                    break;
+                case "cobra de fogo":
+                    graficos.drawImage(Imagens.cobraF, x, y, this);
+                    break;
+                case "coelho":
+                    graficos.drawImage(Imagens.coelho, x, y, this);
+                    break;
+                case "dragao de fogo":
+                    graficos.drawImage(Imagens.dragaoF, x, y, this);
+                    break;
+                case "fenix":
+                    graficos.drawImage(Imagens.fenix, x, y, this);
+                    break;
+                case "guerreiro":
+                    graficos.drawImage(Imagens.guerreiro, x, y, this);
+                    break;
+                case "leao":
+                    graficos.drawImage(Imagens.leao, x, y, this);
+                    break;
+                case "raposa":
+                    graficos.drawImage(Imagens.raposa, x, y, this);
+                    break;
+                case "tigre de fogo":
+                    graficos.drawImage(Imagens.tigre, x, y, this);
+                    break;
+                case "cavalo":
+                    graficos.drawImage(Imagens.cavalo, x, y, this);
+                    break;
+                case "cobra marinha":
+                    graficos.drawImage(Imagens.cobraM, x, y, this);
+                    break;
+                case "golfinho":
+                    graficos.drawImage(Imagens.golfinho, x, y, this);
+                    break;
+                case "peixe pequeno":
+                    graficos.drawImage(Imagens.peixeP, x, y, this);
+                    break;
+                case "peixe":
+                    graficos.drawImage(Imagens.peixe, x, y, this);
+                    break;
+                case "sapo":
+                    graficos.drawImage(Imagens.sapo, x, y, this);
+                    break;
+                case "sereia":
+                    graficos.drawImage(Imagens.sereia, x, y, this);
+                    break;
+                case "tartaruga":
+                    graficos.drawImage(Imagens.tartaruga, x, y, this);
+                    break;
+                case "tubarao":
+                    graficos.drawImage(Imagens.tubarao, x, y, this);
+                    break;
+                case "dragao marinho":
+                    graficos.drawImage(Imagens.dragaoM, x, y, this);
+                    break;
+                case "jacare":
+                    graficos.drawImage(Imagens.jacare, x, y, this);
+                    break;
+                case "compra":
+                    graficos.drawImage(Imagens.compra, x, y, this);
+                    break;
+                case "vida":
+                    graficos.drawImage(Imagens.cura, x, y, this);
+                    break;
+                case "destruicao":
+                    graficos.drawImage(Imagens.destruir, x, y, this);
+                    break;
+                case "ataque":
+                    graficos.drawImage(Imagens.ataque, x, y, this);
+                    break;
+                case "defesa":
+                    graficos.drawImage(Imagens.defesa, x, y, this);
+                    break;
+                case "dano":
+                    graficos.drawImage(Imagens.dano, x, y, this);
+                    break;
+                case "equipamento":
+                    graficos.drawImage(Imagens.equipamento, x, y, this);
+                    break;
+                case "campoF":
+                    graficos.drawImage(Imagens.campoF, x, y, this);
+                    break;
+                case "campoR":
+                    graficos.drawImage(Imagens.campoR, x, y, this);
+                    break;
+                case "campoA":
+                    graficos.drawImage(Imagens.campoA, x, y, this);
+                    break;
+                default:
+                    System.out.println("Carta não reconhecida: " + carta);
+                    break;
                 }
                 x += 100;
             }}
@@ -1319,96 +1209,96 @@ public class duelo extends JPanel implements KeyListener {
                 int xMonstros = 392 + (iMonstro * 100);
                 if (cartaMonstro != null) {
                     switch (cartaMonstro) {
-                        case "lobo":
-                            graficos.drawImage(lobo, xMonstros, yMonstros, this);
-                            break;
-                        case "abelha":
-                            graficos.drawImage(abelha, xMonstros, yMonstros, this);
-                            break;
-                        case "aguia":
-                            graficos.drawImage(aguia, xMonstros, yMonstros, this);
-                            break;
-                        case "aranha":
-                            graficos.drawImage(aranha, xMonstros, yMonstros, this);
-                            break;
-                        case "besouro":
-                            graficos.drawImage(besouro, xMonstros, yMonstros, this);
-                            break;
-                        case "cobra":
-                            graficos.drawImage(cobraR, xMonstros, yMonstros, this);
-                            break;
-                        case "enguia":
-                            graficos.drawImage(enguia, xMonstros, yMonstros, this);
-                            break;
-                        case "dragao relampago":
-                            graficos.drawImage(dragaoR, xMonstros, yMonstros, this);
-                            break;
-                        case "tigre":
-                            graficos.drawImage(tigreR, xMonstros, yMonstros, this);
-                            break;
-                        case "guerreiro alado":
-                            graficos.drawImage(guerreiroA, xMonstros, yMonstros, this);
-                            break;
-                        case "gato":
-                            graficos.drawImage(gato, xMonstros, yMonstros, this);
-                            break;
-                        case "cobra de fogo":
-                            graficos.drawImage(cobraF, xMonstros, yMonstros, this);
-                            break;
-                        case "coelho":
-                            graficos.drawImage(coelho, xMonstros, yMonstros, this);
-                            break;
-                        case "dragao de fogo":
-                            graficos.drawImage(dragaoF, xMonstros, yMonstros, this);
-                            break;
-                        case "fenix":
-                            graficos.drawImage(fenix, xMonstros, yMonstros, this);
-                            break;
-                        case "guerreiro":
-                            graficos.drawImage(guerreiro, xMonstros, yMonstros, this);
-                            break;
-                        case "leao":
-                            graficos.drawImage(leao, xMonstros, yMonstros, this);
-                            break;
-                        case "raposa":
-                            graficos.drawImage(raposa, xMonstros, yMonstros, this);
-                            break;
-                        case "tigre de fogo":
-                            graficos.drawImage(tigre, xMonstros, yMonstros, this);
-                            break;
-                        case "cavalo":
-                            graficos.drawImage(cavalo, xMonstros, yMonstros, this);
-                            break;
-                        case "cobra marinha":
-                            graficos.drawImage(cobraM, xMonstros, yMonstros, this);
-                            break;
-                        case "golfinho":
-                            graficos.drawImage(golfinho, xMonstros, yMonstros, this);
-                            break;
-                        case "peixe pequeno":
-                            graficos.drawImage(peixeP, xMonstros, yMonstros, this);
-                            break;
-                        case "peixe":
-                            graficos.drawImage(peixe, xMonstros, yMonstros, this);
-                            break;
-                        case "sapo":
-                            graficos.drawImage(sapo, xMonstros, yMonstros, this);
-                            break;
-                        case "sereia":
-                            graficos.drawImage(sereia, xMonstros, yMonstros, this);
-                            break;
-                        case "tartaruga":
-                            graficos.drawImage(tartaruga, xMonstros, yMonstros, this);
-                            break;
-                        case "tubarao":
-                            graficos.drawImage(tubarao, xMonstros, yMonstros, this);
-                            break;
-                        case "dragao marinho":
-                            graficos.drawImage(dragaoM, xMonstros, yMonstros, this);
-                            break;
-                        case "jacare":
-                            graficos.drawImage(jacare, xMonstros, yMonstros, this);
-                            break;
+                    case "lobo":
+                        graficos.drawImage(Imagens.lobo, xMonstros, yMonstros, this);
+                        break;
+                    case "abelha":
+                        graficos.drawImage(Imagens.abelha, xMonstros, yMonstros, this);
+                        break;
+                    case "aguia":
+                        graficos.drawImage(Imagens.aguia, xMonstros, yMonstros, this);
+                        break;
+                    case "aranha":
+                        graficos.drawImage(Imagens.aranha, xMonstros, yMonstros, this);
+                        break;
+                    case "besouro":
+                        graficos.drawImage(Imagens.besouro, xMonstros, yMonstros, this);
+                        break;
+                    case "cobra":
+                        graficos.drawImage(Imagens.cobraR, xMonstros, yMonstros, this);
+                        break;
+                    case "enguia":
+                        graficos.drawImage(Imagens.enguia, xMonstros, yMonstros, this);
+                        break;
+                    case "dragao relampago":
+                        graficos.drawImage(Imagens.dragaoR, xMonstros, yMonstros, this);
+                        break;
+                    case "tigre":
+                        graficos.drawImage(Imagens.tigreR, xMonstros, yMonstros, this);
+                        break;
+                    case "guerreiro alado":
+                        graficos.drawImage(Imagens.guerreiroA, xMonstros, yMonstros, this);
+                        break;
+                    case "gato":
+                        graficos.drawImage(Imagens.gato, xMonstros, yMonstros, this);
+                        break;
+                    case "cobra de fogo":
+                        graficos.drawImage(Imagens.cobraF, xMonstros, yMonstros, this);
+                        break;
+                    case "coelho":
+                        graficos.drawImage(Imagens.coelho, xMonstros, yMonstros, this);
+                        break;
+                    case "dragao de fogo":
+                        graficos.drawImage(Imagens.dragaoF, xMonstros, yMonstros, this);
+                        break;
+                    case "fenix":
+                        graficos.drawImage(Imagens.fenix, xMonstros, yMonstros, this);
+                        break;
+                    case "guerreiro":
+                        graficos.drawImage(Imagens.guerreiro, xMonstros, yMonstros, this);
+                        break;
+                    case "leao":
+                        graficos.drawImage(Imagens.leao, xMonstros, yMonstros, this);
+                        break;
+                    case "raposa":
+                        graficos.drawImage(Imagens.raposa, xMonstros, yMonstros, this);
+                        break;
+                    case "tigre de fogo":
+                        graficos.drawImage(Imagens.tigre, xMonstros, yMonstros, this);
+                        break;
+                    case "cavalo":
+                        graficos.drawImage(Imagens.cavalo, xMonstros, yMonstros, this);
+                        break;
+                    case "cobra marinha":
+                        graficos.drawImage(Imagens.cobraM, xMonstros, yMonstros, this);
+                        break;
+                    case "golfinho":
+                        graficos.drawImage(Imagens.golfinho, xMonstros, yMonstros, this);
+                        break;
+                    case "peixe pequeno":
+                        graficos.drawImage(Imagens.peixeP, xMonstros, yMonstros, this);
+                        break;
+                    case "peixe":
+                        graficos.drawImage(Imagens.peixe, xMonstros, yMonstros, this);
+                        break;
+                    case "sapo":
+                        graficos.drawImage(Imagens.sapo, xMonstros, yMonstros, this);
+                        break;
+                    case "sereia":
+                        graficos.drawImage(Imagens.sereia, xMonstros, yMonstros, this);
+                        break;
+                    case "tartaruga":
+                        graficos.drawImage(Imagens.tartaruga, xMonstros, yMonstros, this);
+                        break;
+                    case "tubarao":
+                        graficos.drawImage(Imagens.tubarao, xMonstros, yMonstros, this);
+                        break;
+                    case "dragao marinho":
+                        graficos.drawImage(Imagens.dragaoM, xMonstros, yMonstros, this);
+                        break;
+                    case "jacare":
+                        graficos.drawImage(Imagens.jacare, xMonstros, yMonstros, this);
+                        break;
                     }
                 }  
             }
@@ -1418,36 +1308,36 @@ public class duelo extends JPanel implements KeyListener {
                 String cartaMagia = magiasefeiticos[iMagia];
                 if (cartaMagia != null) {
                     switch (cartaMagia) {
-                        case "compra":
-                            graficos.drawImage(compra, xMagias, yMagias, this);
-                            break;
-                        case "vida":
-                            graficos.drawImage(cura, xMagias, yMagias, this);
-                            break;
-                        case "destruicao":
-                            graficos.drawImage(destruir, xMagias, yMagias, this);
-                            break;
-                        case "ataque":
-                            graficos.drawImage(ataque, xMagias, yMagias, this);
-                            break;
-                        case "defesa":
-                            graficos.drawImage(defesa, xMagias, yMagias, this);
-                            break;
-                        case "dano":
-                            graficos.drawImage(dano, xMagias, yMagias, this);
-                            break;
-                        case "equipamento":
-                            graficos.drawImage(equipamento, xMagias, yMagias, this);
-                            break;
-                        case "campoF":
-                            graficos.drawImage(campoF, xMagias, yMagias, this);
-                            break;
-                        case "campoR":
-                            graficos.drawImage(campoR, xMagias, yMagias, this);
-                            break;
-                        case "campoA":
-                            graficos.drawImage(campoA, xMagias, yMagias, this);
-                            break;
+                    case "compra":
+                        graficos.drawImage(Imagens.compra, xMagias, yMagias, this);
+                        break;
+                    case "vida":
+                        graficos.drawImage(Imagens.cura, xMagias, yMagias, this);
+                        break;
+                    case "destruicao":
+                        graficos.drawImage(Imagens.destruir, xMagias, yMagias, this);
+                        break;
+                    case "ataque":
+                        graficos.drawImage(Imagens.ataque, xMagias, yMagias, this);
+                        break;
+                    case "defesa":
+                        graficos.drawImage(Imagens.defesa, xMagias, yMagias, this);
+                        break;
+                    case "dano":
+                        graficos.drawImage(Imagens.dano, xMagias, yMagias, this);
+                        break;
+                    case "equipamento":
+                        graficos.drawImage(Imagens.equipamento, xMagias, yMagias, this);
+                        break;
+                    case "campoF":
+                        graficos.drawImage(Imagens.campoF, xMagias, yMagias, this);
+                        break;
+                    case "campoR":
+                        graficos.drawImage(Imagens.campoR, xMagias, yMagias, this);
+                        break;
+                    case "campoA":
+                        graficos.drawImage(Imagens.campoA, xMagias, yMagias, this);
+                        break;
                     }
                     xMagias += 100;
                 }
@@ -1460,94 +1350,94 @@ public class duelo extends JPanel implements KeyListener {
                 if (cartaMonstro != null) {
                     switch (cartaMonstro) {
                         case "lobo":
-                            graficos.drawImage(lobo, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.lobo, xMonstros2, yMonstros2, this);
                             break;
                         case "abelha":
-                            graficos.drawImage(abelha, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.abelha, xMonstros2, yMonstros2, this);
                             break;
                         case "aguia":
-                            graficos.drawImage(aguia, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.aguia, xMonstros2, yMonstros2, this);
                             break;
                         case "aranha":
-                            graficos.drawImage(aranha, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.aranha, xMonstros2, yMonstros2, this);
                             break;
                         case "besouro":
-                            graficos.drawImage(besouro, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.besouro, xMonstros2, yMonstros2, this);
                             break;
                         case "cobra":
-                            graficos.drawImage(cobraR, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.cobraR, xMonstros2, yMonstros2, this);
                             break;
                         case "enguia":
-                            graficos.drawImage(enguia, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.enguia, xMonstros2, yMonstros2, this);
                             break;
                         case "dragao relampago":
-                            graficos.drawImage(dragaoR, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.dragaoR, xMonstros2, yMonstros2, this);
                             break;
                         case "tigre":
-                            graficos.drawImage(tigreR, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.tigreR, xMonstros2, yMonstros2, this);
                             break;
                         case "guerreiro alado":
-                            graficos.drawImage(guerreiroA, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.guerreiroA, xMonstros2, yMonstros2, this);
                             break;
                         case "gato":
-                            graficos.drawImage(gato, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.gato, xMonstros2, yMonstros2, this);
                             break;
                         case "cobra de fogo":
-                            graficos.drawImage(cobraF, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.cobraF, xMonstros2, yMonstros2, this);
                             break;
                         case "coelho":
-                            graficos.drawImage(coelho, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.coelho, xMonstros2, yMonstros2, this);
                             break;
                         case "dragao de fogo":
-                            graficos.drawImage(dragaoF, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.dragaoF, xMonstros2, yMonstros2, this);
                             break;
                         case "fenix":
-                            graficos.drawImage(fenix, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.fenix, xMonstros2, yMonstros2, this);
                             break;
                         case "guerreiro":
-                            graficos.drawImage(guerreiro, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.guerreiro, xMonstros2, yMonstros2, this);
                             break;
                         case "leao":
-                            graficos.drawImage(leao, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.leao, xMonstros2, yMonstros2, this);
                             break;
                         case "raposa":
-                            graficos.drawImage(raposa, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.raposa, xMonstros2, yMonstros2, this);
                             break;
                         case "tigre de fogo":
-                            graficos.drawImage(tigre, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.tigre, xMonstros2, yMonstros2, this);
                             break;
                         case "cavalo":
-                            graficos.drawImage(cavalo, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.cavalo, xMonstros2, yMonstros2, this);
                             break;
                         case "cobra marinha":
-                            graficos.drawImage(cobraM, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.cobraM, xMonstros2, yMonstros2, this);
                             break;
                         case "golfinho":
-                            graficos.drawImage(golfinho, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.golfinho, xMonstros2, yMonstros2, this);
                             break;
                         case "peixe pequeno":
-                            graficos.drawImage(peixeP, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.peixeP, xMonstros2, yMonstros2, this);
                             break;
                         case "peixe":
-                            graficos.drawImage(peixe, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.peixe, xMonstros2, yMonstros2, this);
                             break;
                         case "sapo":
-                            graficos.drawImage(sapo, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.sapo, xMonstros2, yMonstros2, this);
                             break;
                         case "sereia":
-                            graficos.drawImage(sereia, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.sereia, xMonstros2, yMonstros2, this);
                             break;
                         case "tartaruga":
-                            graficos.drawImage(tartaruga, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.tartaruga, xMonstros2, yMonstros2, this);
                             break;
                         case "tubarao":
-                            graficos.drawImage(tubarao, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.tubarao, xMonstros2, yMonstros2, this);
                             break;
                         case "dragao marinho":
-                            graficos.drawImage(dragaoM, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.dragaoM, xMonstros2, yMonstros2, this);
                             break;
                         case "jacare":
-                            graficos.drawImage(jacare, xMonstros2, yMonstros2, this);
+                            graficos.drawImage(Imagens.jacare, xMonstros2, yMonstros2, this);
                             break;
                     }
                 }  
@@ -1559,34 +1449,34 @@ public class duelo extends JPanel implements KeyListener {
                 if (cartaMagia != null) {
                     switch (cartaMagia) {
                         case "compra":
-                            graficos.drawImage(compra, xMagias2, yMagias2, this);
+                            graficos.drawImage(Imagens.compra, xMagias2, yMagias2, this);
                             break;
                         case "vida":
-                            graficos.drawImage(cura, xMagias2, yMagias2, this);
+                            graficos.drawImage(Imagens.cura, xMagias2, yMagias2, this);
                             break;
                         case "destruicao":
-                            graficos.drawImage(destruir, xMagias2, yMagias2, this);
+                            graficos.drawImage(Imagens.destruir, xMagias2, yMagias2, this);
                             break;
                         case "ataque":
-                            graficos.drawImage(ataque, xMagias2, yMagias2, this);
+                            graficos.drawImage(Imagens.ataque, xMagias2, yMagias2, this);
                             break;
                         case "defesa":
-                            graficos.drawImage(defesa, xMagias2, yMagias2, this);
+                            graficos.drawImage(Imagens.defesa, xMagias2, yMagias2, this);
                             break;
                         case "dano":
-                            graficos.drawImage(dano, xMagias2, yMagias2, this);
+                            graficos.drawImage(Imagens.dano, xMagias2, yMagias2, this);
                             break;
                         case "equipamento":
-                            graficos.drawImage(equipamento, xMagias2, yMagias2, this);
+                            graficos.drawImage(Imagens.equipamento, xMagias2, yMagias2, this);
                             break;
                         case "campoF":
-                            graficos.drawImage(campoF, xMagias2, yMagias2, this);
+                            graficos.drawImage(Imagens.campoF, xMagias2, yMagias2, this);
                             break;
                         case "campoR":
-                            graficos.drawImage(campoR, xMagias2, yMagias2, this);
+                            graficos.drawImage(Imagens.campoR, xMagias2, yMagias2, this);
                             break;
                         case "campoA":
-                            graficos.drawImage(campoA, xMagias2, yMagias2, this);
+                            graficos.drawImage(Imagens.campoA, xMagias2, yMagias2, this);
                             break;
                     }
                     xMagias2 += 100;
