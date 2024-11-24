@@ -32,7 +32,6 @@ public class status {
 	int[] tubarao = {2500,2000,7,3,3};
 	int[] dragaoM = {3000,2500,8,2,3};
 	int[] jacare = {2000,2000,3,6,3};
-	int[] nulo = {0,0,0,10,0};
 	
 	String[] compra = {"magia", "1", "3"};
 	String[] vida = {"magia", "2", "3"};
@@ -56,30 +55,29 @@ public class status {
             case "cobra": return cobra;
             case "aranha": return aranha;
             case "enguia": return enguia;
-            case "dragao relampago": return dragaoR;
+            case "dragaoR": return dragaoR;
             case "tigre": return tigre;
-            case "guerreiro alado": return guerreiroA;
+            case "guerreiroA": return guerreiroA;
             case "gato": return gato;
-            case "cobra de fogo": return cobraF;
+            case "cobraF": return cobraF;
             case "coelho": return coelho;
-            case "dragao de fogo": return dragaoF;
+            case "dragaoF": return dragaoF;
             case "fenix": return fenix;
             case "guerreiro": return guerreiro;
             case "leao": return leao;
             case "raposa": return raposa;
-            case "tigre de fogo": return tigreF;
+            case "tigreF": return tigreF;
             case "cavalo": return cavalo;
-            case "cobra marinha": return cobraM;
+            case "cobraM": return cobraM;
             case "golfinho": return golfinho;
-            case "peixe pequeno": return peixeP;
+            case "peixeP": return peixeP;
             case "peixe": return peixe;
             case "sapo": return sapo;
             case "sereia": return sereia;
             case "tartaruga": return tartaruga;
             case "tubarao": return tubarao;
-            case "dragao marinho": return dragaoM;
+            case "dragaoM": return dragaoM;
             case "jacare": return jacare;
-            case "nulo": return nulo;
 
             default: return null;
         }
@@ -106,5 +104,4 @@ public class status {
             default: return null;
         }
     }
-
 }
