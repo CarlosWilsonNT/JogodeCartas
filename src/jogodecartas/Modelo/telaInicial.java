@@ -51,7 +51,7 @@ public class telaInicial extends JPanel {
         super.paintComponent(g);
         Graphics2D graficos = (Graphics2D) g;
         graficos.drawImage(fundo, 0, 0, getWidth(), getHeight(), this);
-        if(duelo = true) {
+        if(duelo == true) {
         graficos.drawImage(borda, 420, 335, this);
         }
     }
