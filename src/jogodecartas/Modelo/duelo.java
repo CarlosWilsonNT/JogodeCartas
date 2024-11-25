@@ -87,7 +87,8 @@ public class duelo extends JPanel implements KeyListener {
     private boolean selecionandoAtacante = true;
     
     private Image fim;
-    private boolean vencedor = false;
+    private boolean vencedor1 = false;
+    private boolean vencedor2 = false;
     private boolean aumentoAtivado = false;
     private boolean reducaoAtivada = false;
     private boolean espada = false;
@@ -525,7 +526,7 @@ public class duelo extends JPanel implements KeyListener {
                 break;
             case 3:
             	destruirMagiaFeiticoOponente();
-            	verificarMagias(magiasefeiticos, magiasefeiticos2);
+            	verificarMagias();
                 System.out.println("O monstro " + carta + " aplica o efeito 3.");
                 break;
             case 4:
@@ -648,8 +649,8 @@ public class duelo extends JPanel implements KeyListener {
         return -1;
     }
 
-    private void verificarMagias(String[] magiasefeiticos, String[] magiasefeiticos2) {
-        boolean equipExiste = verificarTermo(magiasefeiticos, magiasefeiticos2, "equipameto");
+    private void verificarMagias() {
+        boolean equipExiste = verificarTermo(magiasefeiticos, magiasefeiticos2, "equipamento");
         boolean campoAExiste = verificarTermo(magiasefeiticos, magiasefeiticos2, "campoA");
         boolean campoFExiste = verificarTermo(magiasefeiticos, magiasefeiticos2, "campoF");
         boolean campoRExiste = verificarTermo(magiasefeiticos, magiasefeiticos2, "campoR");
@@ -840,10 +841,12 @@ public class duelo extends JPanel implements KeyListener {
     }
     
     public void verificarVencedor() {
-        if (pontosVidaJogador1 <= 0 || pontosVidaJogador2 <= 0 || 
-            deckOut(deck1) || deckOut(deck2)) {
-            vencedor = true;
+        if (pontosVidaJogador2 <= 0 || deckOut(deck2)) {
+            vencedor1 = true;
         }
+        if (pontosVidaJogador1 <= 0 || deckOut(deck1)) {
+            vencedor2 = true;
+            }
     }
    
     @Override
@@ -860,8 +863,7 @@ public class duelo extends JPanel implements KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Graphics2D graficos = (Graphics2D) g;
-        
+        Graphics2D graficos = (Graphics2D) g;      
         graficos.drawImage(fundo, 0, 0, this);
         graficos.drawImage(deck, 695, 470, this);
         graficos.drawImage(deck, 290, 120, this);
@@ -871,10 +873,7 @@ public class duelo extends JPanel implements KeyListener {
 
         graficos.drawString(String.valueOf(pontosVidaJogador1), 0, 140);
         graficos.drawString(String.valueOf(pontosVidaJogador2), 0, 580);
-        graficos.drawString(String.valueOf(contador), 0, 50);
-        graficos.drawString(String.valueOf(turno), 0, 200);
-        graficos.drawString(String.valueOf(cristalInvocacao), 950, 600);
-        graficos.setFont(new Font("Arial", Font.BOLD, 30));
+        graficos.setFont(new Font("Serif", Font.BOLD, 30));
         if(faseBatalha) {
         g.drawString("Fase de Batalha", 20, 300);
         graficos.setFont(new Font("Arial", Font.BOLD, 10));
@@ -1195,7 +1194,7 @@ public class duelo extends JPanel implements KeyListener {
                 }
                 x += 100;
             }}
-            
+
             //System.out.println(Arrays.toString(monstros));
             //System.out.println(Arrays.toString(magiasefeiticos));
             //System.out.println(Arrays.toString(monstros));
@@ -1501,8 +1500,18 @@ public class duelo extends JPanel implements KeyListener {
         	g.drawString("A  S   D  + ENTER PARA SELECIONAR", 20, 370);
         }
         
-        if(vencedor) {
+        if(vencedor1) {
+        	graficos.setColor(Color.YELLOW);
+            graficos.setFont(new Font("Arial", Font.BOLD, 48));
         	graficos.drawImage(fim, 0, 0, this);
+        	g.drawString("Vencedor Jogador1", 330, 500);
+        	fecharTela((JFrame) SwingUtilities.getWindowAncestor(this));
+        }
+        if(vencedor2) {
+        	graficos.setColor(Color.YELLOW);
+            graficos.setFont(new Font("Arial", Font.BOLD, 48));
+        	graficos.drawImage(fim, 0, 0, this);
+        	g.drawString("Vencedor Jogador2", 330, 500);
         	fecharTela((JFrame) SwingUtilities.getWindowAncestor(this));
         }
     
