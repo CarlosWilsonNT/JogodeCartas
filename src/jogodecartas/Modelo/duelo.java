@@ -449,7 +449,13 @@ public class duelo extends JPanel implements KeyListener {
     private void invocarMonstro(String[] cemiterio, String[] monstros, String jogador) {
         for (int i = 0; i < cemiterio.length; i++) {
             String monstro = cemiterio[i];
-            if (monstro != null && !monstro.equalsIgnoreCase("nulo")) {
+            if (monstro != null) {
+                if (monstro.trim().equalsIgnoreCase("nulo")) {
+                    cemiterio[i] = null;
+                    System.out.println("Termo 'nulo' removido do cemitério.");
+                    invocarMonstro(cemiterio, monstros, jogador);
+                    return;
+                }
                 if (temEspacoNaLista(monstros)) {
                     adicionarNaLista(monstros, monstro);
                     System.out.println("Monstro invocado do cemitério para " + jogador + ": " + monstro);
@@ -531,19 +537,19 @@ public class duelo extends JPanel implements KeyListener {
                 break;
             case 4:
             	if (turnoJogador1) {
-                	pontosVidaJogador2 += 1000;
+                	pontosVidaJogador1 += 1000;
                 	}
                 	if (turnoJogador2) {
-                	pontosVidaJogador1 += 1000;
+                	pontosVidaJogador2 += 1000;
                 	}
                 System.out.println("O monstro " + carta + " aplica o efeito 4.");
                 break;
             case 5:
             	if (turnoJogador1) {
-                	pontosVidaJogador1 -= 500;
+                	pontosVidaJogador2 -= 500;
                 	}
                 	if (turnoJogador2) {
-                	pontosVidaJogador2 -= 500;
+                	pontosVidaJogador1 -= 500;
                 	}
                 System.out.println("O monstro " + carta + " aplica o efeito 5.");
                 break;
@@ -570,18 +576,18 @@ public class duelo extends JPanel implements KeyListener {
                 break;
             case 2:
             	if (turnoJogador1) {
-            	pontosVidaJogador2 += 500;
+            	pontosVidaJogador1 += 500;
             	}
             	if (turnoJogador2) {
-            	pontosVidaJogador1 += 500;
+            	pontosVidaJogador2 += 500;
             	}
                 break;
             case 3:
             	if (turnoJogador1) {
-            	pontosVidaJogador1 -= 300;
+            	pontosVidaJogador2 -= 300;
             	}
             	if (turnoJogador2) {
-            	pontosVidaJogador2 -= 300;
+            	pontosVidaJogador1 -= 300;
             	}
             	break;
             case 4:
@@ -744,15 +750,15 @@ public class duelo extends JPanel implements KeyListener {
                     int dano = ataqueAtacante - defesaAlvo;
 
                     if (dano > 0) {
-                        pontosVidaJogador1 -= dano;
-                        System.out.println("O monstro alvo sofreu " + dano + " de dano! Pontos de vida restantes do jogador 2: " + pontosVidaJogador1);
+                        pontosVidaJogador2 -= dano;
+                        System.out.println("O monstro alvo sofreu " + dano + " de dano! Pontos de vida restantes do jogador 2: " + pontosVidaJogador2);
                         removerDaLista(monstros2, monstroSelecionadoAlvo);
                         adicionarNaLista(cemiterio2, monstroSelecionadoAlvo);
                         verificarVencedor();
                         resetarSelecoes();
                     } else if (dano < 0) {
-                        pontosVidaJogador2 += dano;
-                        System.out.println("O monstro alvo tinha mais poder: " + dano + ". Pontos de vida restantes do jogador 1: " + pontosVidaJogador2);
+                        pontosVidaJogador1 += dano;
+                        System.out.println("O monstro alvo tinha mais poder: " + dano + ". Pontos de vida restantes do jogador 1: " + pontosVidaJogador1);
                         verificarVencedor();
                         resetarSelecoes();
                     }else if (dano == 0) {
@@ -799,15 +805,15 @@ public class duelo extends JPanel implements KeyListener {
                     int dano = ataqueAtacante - defesaAlvo;
 
                     if (dano > 0) {
-                        pontosVidaJogador2 -= dano;
-                        System.out.println("O monstro alvo sofreu " + dano + " de dano! Pontos de vida restantes do jogador 1: " + pontosVidaJogador2);
+                        pontosVidaJogador1 -= dano;
+                        System.out.println("O monstro alvo sofreu " + dano + " de dano! Pontos de vida restantes do jogador 1: " + pontosVidaJogador1);
                         removerDaLista(monstros, monstroSelecionadoAlvo);
                         adicionarNaLista(cemiterio1, monstroSelecionadoAlvo);
                         verificarVencedor();
                         resetarSelecoes();
                     } else if (dano < 0) {
-                        pontosVidaJogador1 += dano;
-                        System.out.println("O monstro alvo tinha mais poder: " + dano + ". Pontos de vida restantes do jogador 2: " + pontosVidaJogador1);
+                        pontosVidaJogador2 += dano;
+                        System.out.println("O monstro alvo tinha mais poder: " + dano + ". Pontos de vida restantes do jogador 2: " + pontosVidaJogador2);
                         verificarVencedor();
                         resetarSelecoes();
                     }else if (dano == 0) {
@@ -871,8 +877,8 @@ public class duelo extends JPanel implements KeyListener {
         graficos.setColor(Color.RED);
         graficos.setFont(new Font("Arial", Font.BOLD, 48));
 
-        graficos.drawString(String.valueOf(pontosVidaJogador1), 0, 140);
-        graficos.drawString(String.valueOf(pontosVidaJogador2), 0, 580);
+        graficos.drawString(String.valueOf(pontosVidaJogador1), 0, 540);
+        graficos.drawString(String.valueOf(pontosVidaJogador2), 0, 140);
         graficos.setFont(new Font("Serif", Font.BOLD, 30));
         if(faseBatalha) {
         g.drawString("Fase de Batalha", 20, 300);
