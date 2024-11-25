@@ -32,6 +32,7 @@ public class status {
 	int[] tubarao = {2500,2000,7,3,3};
 	int[] dragaoM = {3000,2500,8,2,3};
 	int[] jacare = {2000,2000,3,6,3};
+	int[] nulo = {0,0,0,10,0};
 	
 	String[] compra = {"magia", "1", "3"};
 	String[] vida = {"magia", "2", "3"};
@@ -78,6 +79,7 @@ public class status {
             case "tubarao": return tubarao;
             case "dragao marinho": return dragaoM;
             case "jacare": return jacare;
+            case "nulo": return nulo;
 
             default: return null;
         }
